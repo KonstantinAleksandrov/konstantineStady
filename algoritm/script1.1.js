@@ -1,16 +1,21 @@
+'use strict'
+
 // Дана сторона квадрата a. Найти его периметр P = 4·a
+{
+ let a = 5
+ let P = 4 * a
 
-let a = 5
-let P = 4 * a
-
-console.log(P)
-
+ console.log(P)
+}
 
 //Дана сторона квадрата a. Найти его площадь S
- a = 5
-let S = a * a
+{
+ let a = 5
+ let S = a * a
 
-console.log(S)
+ console.log(S)
+}
+
 //Даны стороны прямоугольника a и b. Найти его площадь S = a·b, b периметр P = 2·(a + b)
 let b = 4
 a = 5
