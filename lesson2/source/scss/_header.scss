@@ -1,0 +1,113 @@
+.header {
+   position: relative;
+
+   &__title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 35px;
+      line-height: 47px;
+      text-align: center;
+      @include adaptive-value("font-size",35,25,320,1);
+      @include adaptive-value("line-height",47,33,320,1);
+      @include adaptive-value("margin-top",60,40,320,1);
+      @include adaptive-value("margin-bottom",46,30,320,1);
+      margin-right: 60px;
+      margin-left: 60px;
+   }
+
+   &__content {
+   }
+
+}
+.menu {
+
+    &__header {
+       display: flex;
+       margin-bottom: 40px;
+    }
+    &__header-block{
+       flex: 1 1 auto;
+       display: flex;
+       justify-content: space-between;
+    }
+    &__header-block:first-child{
+       padding-right: 50px;
+     
+    }
+    &__header-link {
+       color: black;
+       font-size: 15px;
+       line-height: 30px;
+       transition: color 0.3s ease 0s;
+       letter-spacing: 2px;
+       position: relative;
+       transition: all 0.3s ease 0s;
+       display: inline-block;
+    }
+    &__header-link:hover{
+       color: $mainColor;
+    }
+
+ }
+ .icon {
+ 
+    &__menu {
+       display: none;
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 50px;
+       height: 50px;
+       background-color: $mainColor;
+       
+       span{
+          width: 22.5px;
+          height: 2.5px;
+          background-color: white;
+          position: absolute;
+          top: 23.75px;
+          left: 13.75px;
+       }
+       span:first-child{
+          top: 17.5px;
+       }
+       span:last-child{
+          top: 30px;
+       }
+    }
+ }
+ /*-----------------------------------------------------*/
+ .menu__header-link::after{
+	content: '';
+	position: absolute;
+	left: 50%;
+	width: 0;
+	height: 1px;
+	background-color: $mainColor;
+	bottom: 0;
+	transition: all 0.3s ease 0s;
+
+}
+.menu__header-link:hover::after{
+	left: 0;
+	width: 100%;
+}
+ /*-----------------------------------------------------------------------*/
+ @media(max-width:$md2 + px){
+    .menu__header{
+       display: block;
+    }
+    .menu__header-block:first-child{
+       margin-bottom: 30px;
+       padding-right: 0;
+    }
+ }
+ @media(max-width:$md3 + px){
+   .menu__header{
+      display: none;
+   }
+   .icon__menu{
+      display: block;
+   }
+ }
+ /*-----------------------------------------------------------------------*/

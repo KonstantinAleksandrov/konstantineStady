@@ -1,0 +1,27 @@
+.footer{
+    padding-top: 26px;
+    background-color: #F7F7F7;
+}
+.footer-title{
+    margin-top: 0;
+    margin-bottom: 32px;
+    font-size: 28px;
+    line-height: 37px;
+}
+.menu-footer{
+    padding-bottom: 46px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 8px;
+}
+.footer-end{
+    text-align: right;
+    font-size: 10px;
+    line-height: 15px; 
+    opacity: 0.2; 
+    margin-bottom: 10px;
+}
+@media(max-width:$md3 + px){
+    .footer{
+        display: none;
+    }
+}
