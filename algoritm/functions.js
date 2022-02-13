@@ -5,16 +5,15 @@
 //   console.log(number / i)
 // }
 
-function numberLength(number){
+// IIFO
+(function numberLength(number){
   let counter = 0, tempNum = number
   while (tempNum > 1){
     tempNum = tempNum / 10
     counter++
   }
   return counter
-}
-
-
+})(123)
 
 
 // function expression
