@@ -1007,7 +1007,7 @@ body {
 }
 
 .newsContent-advertisement {
-  background-image: url(../img/ad.png);
+  background-image: url("../img/ad1.png");
   background-position: center;
   background-size: cover;
   display: -webkit-box;
