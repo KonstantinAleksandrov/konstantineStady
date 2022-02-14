@@ -22,7 +22,7 @@ console.log(object)
 
 console.log(object)
 
-
+// минимальное значение в массиве
 const findMin = (array) => {
   let min = Infinity
 
