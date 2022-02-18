@@ -1,10 +1,13 @@
 
+
 .newsContent-article {
     flex: 0 1 370px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between
-
+    justify-content: space-between;
+    &__mobile{
+        display: none;
+    }
 }
 .item-newContent {
      @include adaptive-value("padding-top",48,40,320,1);
@@ -52,7 +55,14 @@
     color: white;
 }
 @media(max-width:$md2 + px){
+    
     .newsContent-article{
         flex: 1 1 auto;
+    }
+    .newsContent-article__desctop{
+        display: none;
+    }
+    .newsContent-article__mobile{
+        display: flex;
     }
 }
