@@ -22,7 +22,7 @@ const stringLength = function(string){
   return string.length
 }
 
-console.log(stringLength('this is awesome string'))
+// console.log(stringLength('this is awesome string'))
 
 
 // arrow functions
@@ -37,4 +37,19 @@ console.log(stringLength('this is awesome string'))
 
 const countNumsBetween = (a, b) => b - a + 1
 
-console.log(countNumsBetween(5, 10))
+// console.log(countNumsBetween(5, 10))
+
+const isFibanachi = n => {
+  let isN = false
+  for(let i = 1, j = 1; i <= n;){
+    let temp = i
+    i = i + j
+    j = temp
+    if(i === n) {
+      isN = true
+    }
+  }
+  return isN
+}
+
+console.log(isFibanachi(154))

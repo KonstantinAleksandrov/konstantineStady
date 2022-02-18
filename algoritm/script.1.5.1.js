@@ -236,10 +236,23 @@ console.log(privet(10542));
 console.log('next');
 
 //Дано целое число N (> 1). Проверить, является ли число N числом Фибоначчи. Если является, то вывести TRUE, если нет — вывести FALSE. Последовательность чисел Фибоначчи (FK) определяется следующим образом: "F[1] = 1, F[2] = 1, F[3] = F[1] + F[2], F[4] = F[2] + F[3] ... где сами числа = 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144..."
-//?????????????
 
+// 1,1, 2,3, 5,8,13...n
 
+const isFibanachi = n => {
+  let isN = false
+  for(let i = 1, j = 1; i <= n;){
+    let temp = i
+    i = i + j
+    j = temp
+    if(i === n) {
+      isN = true
+    }
+  }
+  return isN
+}
 
+console.log(isFibanachi(9))
 
 //Даны десять вещественных чисел. Найти их произведение.
 const Series2 = (arr) =>{
@@ -322,8 +335,8 @@ const Minmax2 = (num) =>{
     for( let i = 0,multiply = 0; i < num; i++){
 
         arr[i] = {
-           a : Math.random(),
-           b : Math.random(),
+           a : Math.round(Math.random() * 10),
+           b : Math.round(Math.random() * 10),
         }
 
         multiply = arr[i].a * arr[i].b
