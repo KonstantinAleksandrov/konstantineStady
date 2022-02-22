@@ -1,10 +1,12 @@
 'use strict'
 
-const films = [{name: "It", rating: "7.3", date: "2018 year"}, {
-  name: "Call",
-  rating: "6.7",
-  date: "1995 year"
-}, {name: "Origin", rating: "5.2", date: "2001 year"}]
+const films = [
+  {name: "It", rating: "7.3", date: "2018 year"}, 
+  {name: "Call",rating: "6.7",date: "1995 year"},
+  {name: "ksotya",rating: "2.8",date: "1997 year"},
+  {name: "john",rating: "9.7",date: "1999 year"},
+  {name: "Origin", rating: "5.2", date: "2001 year"}
+]
 
 /* const bubbleSort = (arr,key) => {
     for(let i = 0,endI = arr.length - 1;i < endI; i++){
@@ -21,63 +23,42 @@ const films = [{name: "It", rating: "7.3", date: "2018 year"}, {
 console.log(createArr(films,'rating')); */
 
 
-/* let sortSort = (a,b) => {
-    if (a > b){
-        return 1
+/* const partition = (item,left,right,key) => {
+  let mid = item[Math.floor((left + right) / 2)]
+    while(left <= right){
+      while(item[left][key] < mid[key]){
+        left++
+      }
+      while(item[right][key] > mid[key]){
+        right--
+      }
+      if(left <= right){
+        let temp = item[left]
+        item[left] = item[right]
+        item[right] = temp
+        left++
+        right--
+      }
     }
-    if (a < b){
-        return -1
-    }
-    if(a == b){
-        return 0
-    }
+    return left
+
 }
-console.log(films)
-films.sort(sortSort)
-console.log(films) */
-
-let arrTwo = [5, 2, 3, 35, 55, 12, 68, 0]
-
-function swap(items, firstIndex, secondIndex) {
-  const temp = items[firstIndex]
-  items[firstIndex] = items[secondIndex]
-  items[secondIndex] = temp
-}
-
-function partition(items, left, right) {
-  var pivot = items[Math.floor((right + left) / 2)],
-    i = left,
-    j = right
-  while (i <= j) {
-    while (items[i] < pivot) {
-      i++
+const quickSort = (item,left,right,key) => {
+  if(item.length > 1){
+    let index = partition(item,left,right,key);
+    if(left < index - 1) {
+      quickSort(item,left,index - 1,key)
     }
-    while (items[j] > pivot) {
-      j--
+    if(right > index){
+      quickSort(item,index,right,key)
     }
-
-    swap(items, i, j)
-    i++
-    j--
-
   }
-  return i
+  return item
 }
+console.log(quickSort(films,0,films.length - 1,'date')) */
 
-const qSort = (array, left, right) => {
-  let index = 0
-  index = partition(array, left, right)
 
-  if (left < index - 1) {
-    qSort(array, left, index - 1)
-  }
 
-  if (index < right) {
-    qSort(array, index, right)
-  }
-  return array
-}
 
-console.log(arrTwo)
-console.log(qSort(arrTwo, 0, arrTwo.length - 1))
-console.log(arrTwo)
+
+
