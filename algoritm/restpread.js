@@ -80,11 +80,18 @@ let arr = returnCurrentRelations(2)
 console.log(arr)
 
 
-/* const getValue = (value,{...obj}) => {
-    for (let i = 0; i < user.length;i++){
-        const abc = {...user[i] , ...obj}
-        console.log(abc)
-        break
-    }
+function getValue(){
+    const [id, ...fieldList] = arguments
+    const results = []
+
+    fieldList.forEach((field) => {
+        for(let i = 0; i < user.length; i++) {
+            if(user[i].id === id) {
+                results.push({[field]: user[i][field]})
+            }
+        }
+    })
+    return results
+
 }
-getValue(1,{name: "popopo-", surname: "4124124"}) */
+console.log(getValue(1, 'name', 'surname', 'relations'))
