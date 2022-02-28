@@ -1,12 +1,12 @@
 'use strict'
 
-const films = [
+/* const films = [
   {name: "It", rating: "7.3", date: "2018 year"}, 
   {name: "Call",rating: "6.7",date: "1995 year"},
   {name: "ksotya",rating: "2.8",date: "1997 year"},
   {name: "john",rating: "9.7",date: "1999 year"},
   {name: "Origin", rating: "5.2", date: "2001 year"}
-]
+] */
 
 /* const bubbleSort = (arr,key) => {
     for(let i = 0,endI = arr.length - 1;i < endI; i++){
@@ -58,6 +58,42 @@ const quickSort = (item,left,right,key) => {
 console.log(quickSort(films,0,films.length - 1,'date')) */
 
 
+/* Написать функцию, которая принимает массив объектов типа 
+const films = [{name: "It", rating: "7.3", date: "2018 year", price: 22}, 
+{name: "Call", rating: "6.7", date: "1995 year", price: 12}
+{name: "Origin", rating: "5.2", date: "2001 year", price: 52}] 
+и ключ по которому происходит сортировка field (типа string)
+Функция должна возвращать сумму стоимостей всех фильмов по полю price
+Использовать для этого метод массива reduce */
+
+
+
+const films = [
+{name: "It", rating: "7.3", date: "2018 year", price: 22}, 
+{name: "Call", rating: "6.7", date: "1995 year", price: 12},
+{name: "Origin", rating: "5.2", date: "2001 year", price: 52}
+]
+
+const sortByKey = (arr,item) =>{
+  arr.sort((a,b) => {
+    if (a[item] > b[item]){
+      return 1
+    }
+    if (a[item] < b[item]){
+      return -1
+    }
+    if (a[item] === b[item]){
+      return 0
+    }
+  })
+  return arr
+}
+
+const reduceFilm  = (arr,item) => {
+
+  let resul =  arr.reduce((sum,current) => sum + current['price'],0)
+  return resul
+} 
 
 
 
