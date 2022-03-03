@@ -50,7 +50,6 @@ const returnCurrentRelations = (value) =>{
     let newArr = []
      for (let i = 0; i < user.length;i++){
         if(user[i].id === value){
-            console.log(user[i])
             return getRelationsData(user[i].relations)
             /* for(let j = 0,arr = user[i].relations;j < arr.length;j++){
                 for(let k = 0;k < user.length; k++){
@@ -67,7 +66,6 @@ const returnCurrentRelations = (value) =>{
 }
 
 const getRelationsData = (relations) =>{
-    console.log(relations)
     return relations.map((relation)=>{
         for(let k = 0;k < user.length; k++){
             if(user[k].id === relation){
@@ -77,11 +75,11 @@ const getRelationsData = (relations) =>{
     })
 }
 let arr = returnCurrentRelations(2)
-console.log(arr)
 
 
 function getValue(){
     const [id, ...fieldList] = arguments
+    console.log(fieldList)
     const results = []
 
     fieldList.forEach((field) => {
