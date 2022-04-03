@@ -73,7 +73,7 @@ function User(defaultProps) {
     }
 
     this.changeData = function(obj) {
-        this.user = {id : this.user.id,...obj}
+        this.user = {id : this.user.id, ...obj}
     }
     this.getValues = function(values) {
         const results = []
@@ -157,7 +157,7 @@ function UserList(defaultData) {
 
 const myUserList = new UserList([])
 //myUserList.addNewPerson(persons,{id: 5, name: "Elena", surname: "beautiful", age: 17, relations: [1,2]}) 
- myUserList.setNewUsers(persons) 
+myUserList.setNewUsers(persons)
 console.log(myUserList.showValue(4,'name','age')) 
 
 
