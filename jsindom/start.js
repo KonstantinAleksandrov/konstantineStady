@@ -1,18 +1,28 @@
 'use strict'
-const button = document.querySelector('.button')
+const buttons = document.querySelectorAll('.button')
 const container = document.querySelector('.modal-container')
-/* button.addEventListener('click',function(event){
-    container.style.display = 'flex'
-})
-container.addEventListener('click',function(event){
-    
-}) */
+const modalContent = document.querySelector('.modal-content')
+const modalWindow = document.querySelector('.modal-window')
+const closeElements = document.querySelectorAll('[data-close="close"]')
 
-document.addEventListener('click', function(event){
-    if(event.target.classList == 'button'){
-        container.style.display = 'flex'
-    }
-    if(event.target.dataset.close == 'close' || event.target.tagName == 'SPAN'){
-        container.style.display = 'none'
-    }
-})
+
+const handleCloseModal = () => container.style.display = 'none'
+const handleOpenModal = () => container.style.display = 'flex'
+
+
+buttons.forEach((button) => button.addEventListener('click', handleOpenModal))
+closeElements.forEach(elem => elem.addEventListener("click", handleCloseModal))
+container.addEventListener('click',handleCloseModal)
+modalWindow.addEventListener('click',(e) => e.stopPropagation())
+
+
+// document.addEventListener('click', function(event){
+//     if(event.target.classList == 'button'){
+//         container.style.display = 'flex'
+//     }
+//     if(event.target.dataset.close == 'close' || event.target.tagName == 'SPAN'){
+//         container.style.display = 'none'
+//     }
+// })
+
+
