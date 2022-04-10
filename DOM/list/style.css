@@ -31,13 +31,32 @@
 .form button {
     display: inline-block;
     width: 160px;
-    border: 2px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    border-left: 0;
     height: 29px;
     background-color: rgb(255,222,173);
     transition: all 0.3s ease 0s;
     cursor: pointer;
-
+    position: relative;
 }
+
+.form button:before {
+    content: " ";
+    background-color: rgb(255,222,173);
+    height: 19px;
+    width: 19px;
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: -11px;
+    border-radius: 5px;
+    border: 2px solid black;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
 .form button:hover{
     background-color: rgba(255,222,173, 0.6);
 }
@@ -52,7 +71,7 @@ td{
     border: 1px solid black;
     
 }
-tr:first-child td:before{
+thead tr td:before{
     content: url(arrow-down.svg);
     margin-right: 5px;
     cursor: pointer;
