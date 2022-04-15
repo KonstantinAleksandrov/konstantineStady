@@ -4,7 +4,7 @@ const tableList = [
   {id: 3, name: "Настя", date: "2022-04-12", row: 5, place: 4},
 ]
 
-const checkList = []
+let checkList = null
 
 const renderTable = (list) => {
   const tableBody = document.querySelector('table > tbody')
@@ -12,15 +12,18 @@ const renderTable = (list) => {
 
   list.forEach((row) => {
     const tr = document.createElement('tr')
-    Object.keys(row).forEach((cell) => {
+    Object.values(row).forEach((cell) => {
       const td = document.createElement('td')
-      td.innerText = row[cell]
+      td.innerText = cell
       tr.append(td)
     })
 
     const td = document.createElement('td')
     const checker = document.createElement('input')
     checker.type = 'checkbox'
+    checker.dataset.id = row.id
+    checker.addEventListener('change', (e) => handleCheck(row.id, e.target))
+
     td.append(checker)
     tr.append(td)
 
@@ -45,10 +48,52 @@ const handleSearchByName = (search, list) => {
   renderTable(filteredList)
 }
 
+const handleSort = (fieldName, list) => {
+
+}
+
+
+const handleCheck = (id, target) => {
+
+/***
+ *
+ * We have stopped here
+ *
+ */
 
 
 
+// if(checkList.includes(id)) {
+//   checkList = checkList.filter(f => f !== id)
+// } else {
+//   checkList.push(id)
+// }
 
+const checkboxList = document.querySelectorAll('input[type=checkbox]')
+const isChecked = target.checked
+
+checkboxList.forEach(checkbox => checkbox.checked = false)
+isChecked ? target.checked = true : target.checked = false
+checkList ? checkList = null : checkList = id
+
+console.log(checkList)
+}
+
+
+const EditBtn = document.querySelector('.open-modal')
+EditBtn.addEventListener('click', (e) => {
+const modalContent = document.querySelector('.modal-container .text')
+if(!checkList) {
+  modalContent.textContent = 'Выберите посетителя'
+} else {
+  modalContent.textContent = ""
+  const clonedForm = document.querySelector('.form').cloneNode(true)
+  const formData = tableList.find(f => f.id === checkList)
+  const inputs = clonedForm.querySelectorAll('input')
+  inputs.forEach( input => input.value = formData[input.name])
+  modalContent.append(clonedForm)
+}
+})
 
 const btn = document.querySelector('.form > button')
 btn.addEventListener('click', () => handleAddRow(tableList))
