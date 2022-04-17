@@ -71,16 +71,27 @@ td{
     border: 1px solid black;
     
 }
+
 th{
     padding: 10px;
     border: 1px solid black;
     text-align: left; 
 }
-thead tr td:before{
+
+thead tr th:before{
     content: url(arrow-down.svg);
     margin-right: 5px;
     cursor: pointer;
 }
+
+ thead tr th.down:before{
+     content: url(arrow-down.svg);
+     margin-right: 5px;
+     cursor: pointer;
+     display: inline-block;
+     transform: rotate(180deg);
+ }
+
 td:last-child {
     text-align: center;
 }

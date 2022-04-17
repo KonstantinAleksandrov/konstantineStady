@@ -49,53 +49,88 @@ const handleSearchByName = (search, list) => {
   renderTable(filteredList)
 }
 
-
-const tableSort = (list,item) =>{
+const tableSort = (list, item, direction) =>{
    list.sort((a,b) => {
     if(a[item] > b[item]){
-      return 1 
+      return 1 * direction
     }
     if(a[item] < b[item]){
-      return -1
+      return -1 * direction
     }
     if(a[item] === b[item]){
       return 0
     }
-  }) 
-  
+  })
 }
 
 
-
-const table = document.querySelector('.table')
-table.addEventListener('click',(event) => {
-  if(event.target.tagName == 'TH'){
-    switch(event.target.textContent){
-      case 'id':
-        tableSort(tableList,'id')
-        renderTable(tableList)
-        break;
-      case 'Ряд':
-        tableSort(tableList,'row')  
-        renderTable(tableList)
-        break;
-      case 'Имя':
-        tableSort(tableList,'name')  
-        renderTable(tableList)
-        break;
-      case 'Дата':
-        tableSort(tableList,'date')  
-        renderTable(tableList)
-        break;
-      case 'Место':
-        tableSort(tableList,'place')  
-        renderTable(tableList)
-        break;
-    }
-    
+const tableColumnNames = document.querySelectorAll('.table thead th')
+tableColumnNames.forEach((th) => th.addEventListener('click', (e) => {
+  e.target.classList.toggle('down')
+  // TODO очищать все классы down кроме target
+  if(e.target.dataset.sort === 'up'){
+    e.target.dataset.sort = 'down'
+    tableSort(tableList, e.target.dataset.field, 1)
+    renderTable(tableList)
+  } else {
+    tableSort(tableList, e.target.dataset.field, -1)
+    renderTable(tableList)
+    e.target.dataset.sort = 'up'
   }
+}))
+
+const handleCheck = (id, target) => {
+
+  /***
+   *
+   * We have stopped here
+   *
+   */
 
 
+
+// if(checkList.includes(id)) {
+//   checkList = checkList.filter(f => f !== id)
+// } else {
+//   checkList.push(id)
+// }
+
+  const checkboxList = document.querySelectorAll('input[type=checkbox]')
+  const isChecked = target.checked
+
+  checkboxList.forEach(checkbox => checkbox.checked = false)
+  isChecked ? target.checked = true : target.checked = false
+  checkList ? checkList = null : checkList = id
+
+  console.log(checkList)
+}
+
+
+const EditBtn = document.querySelector('.open-modal')
+EditBtn.addEventListener('click', (e) => {
+  const modalContent = document.querySelector('.modal-container .text')
+  if(!checkList) {
+    modalContent.textContent = 'Выберите посетителя'
+  } else {
+    modalContent.textContent = ""
+    const clonedForm = document.querySelector('.form').cloneNode(true)
+    const formData = tableList.find(f => f.id === checkList)
+    const inputs = clonedForm.querySelectorAll('input')
+    const saveButton = clonedForm.querySelector('button')
+    inputs.forEach( input => input.value = formData[input.name])
+    modalContent.append(clonedForm)
+
+    saveButton.addEventListener('click', () => {
+      const editedRow = {}
+      editedRow.id = checkList
+      inputs.forEach((input) => {
+        editedRow[input.name] = input.value
+      })
+      tableList[checkList - 1] = editedRow
+      renderTable(tableList)
+    })
+
+  }
 })
 
 const btn = document.querySelector('.form > button')
@@ -109,71 +144,69 @@ document.addEventListener('DOMContentLoaded', () => renderTable(tableList))
 
 
 
-/* createAndAddNewChild = () =>{
-  const listForm = document.querySelectorAll('.form > input')
-  const tr = document.createElement('tr')
-  const table = document.querySelector('table')
-  const id = document.createElement('td')
-  const check = document.createElement('input')
-  const checkTd = document.createElement('td')
+// const createAndAddNewChild = () =>{
+//   const listForm = document.querySelectorAll('.form > input')
+//   const tr = document.createElement('tr')
+//   const table = document.querySelector('table')
+//   const id = document.createElement('td')
+//   const check = document.createElement('input')
+//   const checkTd = document.createElement('td')
+//
+//   check.type = 'checkbox'
+//   const allTr = table.querySelectorAll('tr')
+//   if(+allTr[allTr.length - 1].querySelectorAll('td')[0].textContent){
+//     id.textContent = +allTr[allTr.length - 1].querySelectorAll('td')[0].textContent + 1
+//   }else id.textContent = 1
+//
+//
+//
+//   table.append(tr)
+//   checkTd.append(check)
+//   tr.prepend(id)
+//   listForm.forEach((input)=>{
+//     const td = document.createElement('td')
+//     td.textContent = input.value
+//     tr.append(td)
+//   })
+//   tr.append(checkTd)
+// }
 
-  check.type = 'checkbox'
-  const allTr = table.querySelectorAll('tr')
-  if(+allTr[allTr.length - 1].querySelectorAll('td')[0].textContent){
-    id.textContent = +allTr[allTr.length - 1].querySelectorAll('td')[0].textContent + 1
-  }else id.textContent = 1
-  
-  
+// const btn2 = document.querySelector('.form > button')
+// btn2.addEventListener('click',createAndAddNewChild)
+//
+//
+//  deleteTr = () =>{
+//   allCheck = document.querySelectorAll('input[type = checkbox]')
+//   allCheck.forEach((item) => {
+//     if(item.checked){
+//      item.closest('tr').remove()
+//     }
+//   })
+// }
+// const del = document.querySelector('.del');
+// del.addEventListener('click',deleteTr)
 
-  table.append(tr)
-  checkTd.append(check)
-  tr.prepend(id)
-  listForm.forEach((input)=>{
-    const td = document.createElement('td')
-    td.textContent = input.value
-    tr.append(td)
-  })
-  tr.append(checkTd)
-}
-
-const btn = document.querySelector('.form > button')
-btn.addEventListener('click',createAndAddNewChild)
-
-
- deleteTr = () =>{
-  allCheck = document.querySelectorAll('input[type = checkbox]')
-  allCheck.forEach((item) =>{
-    if(item.checked){
-     item.closest('tr').remove()
-    }
-  })
-} 
-const del = document.querySelector('.del');
-del.addEventListener('click',deleteTr) */
-
-/* createArr = () =>{
-  const trList = document.querySelectorAll('tr')
-  const tableList = []
-  let i = 0
-  const firstTdList = trList[0].querySelectorAll('td')
-  for (let item of firstTdList ){
-    tableList[i] = {}
-    trList.forEach((itemTr)=>{
-      const tdList = itemTr.querySelectorAll('td')
-    })
-    tableList[i][item.textContent] = ''
-    i++
-    console.log(tableList)
-  } 
-
-
-}
-createArr() */
-
- 
-
-
-
-
-
+// const createArr = () => {
+//   const trList = document.querySelectorAll('tr')
+//   const tableList = []
+//   const firstTdList = trList[0].querySelectorAll('th')
+//
+//   const rows = document.querySelectorAll('tbody tr')
+//   rows.forEach((row) => {
+//     const rowObj = {}
+//     row.querySelectorAll('td').forEach((cell, key) => {
+//       firstTdList.forEach((field, fieldKey) => {
+//         if(key === fieldKey) {
+//           rowObj[field.dataset.field] = cell.textContent
+//         }
+//       })
+//     })
+//     tableList.push(rowObj)
+//   })
+//
+//   console.log(tableList)
+//
+// }
+//
+// createArr()
 
