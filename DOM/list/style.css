@@ -91,3 +91,121 @@ td:last-child {
     border-radius: 5px;
     margin-right: 20px;
 }
+
+ .wrapper{
+     width: 100%;
+     height: 100%;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .modal-container{
+     width: 100%;
+     height: 100%;
+     position: fixed;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     top: 0;
+     left: 0;
+     display: none;
+     background-color: rgba(0,0,0, 0.3);
+ }
+ .modal-window {
+     flex: 0 1 40%;
+     padding: 20px;
+     background-color: white;
+     border: 1px solid blue;
+     border-radius: 10px;
+ }
+ .modal-header {
+     margin-bottom: 30px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+ .title {
+     font-weight: 600;
+     font-size: 18px;
+ }
+ .cross {
+     width: 26px;
+     height: 26px;
+     position: relative;
+     cursor: pointer;
+
+ }
+ .cross:hover span{
+     background-color: blue;
+ }
+ .cross span {
+     width: 100%;
+     height: 2px;
+     background-color: black;
+     position: absolute;
+     top: 12px;
+     left: 0;
+     transition: all 0.3s ease 0s;
+ }
+ .cross span:first-child{
+     transform: rotate(45deg);
+ }
+ .cross span:last-child{
+     transform: rotate(-45deg);
+
+ }
+ .modal-content {
+     border-top:1px solid grey;
+     border-bottom:1px solid grey;
+     padding-top: 10px;
+     padding-bottom: 10px;
+     display: flex;
+     align-items: center;
+ }
+ .model-footer {
+     padding-top: 10px;
+     text-align: right;
+ }
+ .btn {
+     display: inline-flex;
+     width: 150px;
+     height: 30px;
+     padding: 5px;
+     border: 1px solid blue;
+     justify-content: center;
+     align-items: center;
+     font-size: 16px;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: all 0.3s ease 0s;
+ }
+ .btn:hover{
+     color: white;
+     background-color: blue;
+ }
+ .button{
+     transition: all 0.3s ease 0s;
+     width: 200px;
+     height: 100px;
+     color: white;
+     font-size: 20px;
+     padding: 10px;
+     background-color: black;
+     text-transform: uppercase;
+     cursor: pointer;
+     display: inline-flex;
+     justify-content: center;
+     align-items: center;
+     border-radius: 10px;
+ }
+ .button:hover{
+     font-size: 22px;
+ }
+
+ .modal-container .form {
+     display: flex;
+     align-items: center;
+     margin-bottom: 0;
+ }

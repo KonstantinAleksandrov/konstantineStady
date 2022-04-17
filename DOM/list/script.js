@@ -5,7 +5,7 @@ const tableList = [
   {id: 4, name: "Мерри Джейн", date: "2022-04-12", row: 3, place: 7},
 ]
 
-const checkList = []
+let checkList = null
 
 const renderTable = (list) => {
   const tableBody = document.querySelector('table > tbody')
@@ -13,15 +13,18 @@ const renderTable = (list) => {
 
   list.forEach((row) => {
     const tr = document.createElement('tr')
-    Object.keys(row).forEach((cell) => {
+    Object.values(row).forEach((cell) => {
       const td = document.createElement('td')
-      td.innerText = row[cell]
+      td.innerText = cell
       tr.append(td)
     })
 
     const td = document.createElement('td')
     const checker = document.createElement('input')
     checker.type = 'checkbox'
+    checker.dataset.id = row.id
+    checker.addEventListener('change', (e) => handleCheck(row.id, e.target))
+
     td.append(checker)
     tr.append(td)
 
@@ -45,6 +48,7 @@ const handleSearchByName = (search, list) => {
   const filteredList = list.filter(f => f.name.includes(search))
   renderTable(filteredList)
 }
+
 
 const tableSort = (list,item) =>{
    list.sort((a,b) => {
@@ -90,6 +94,8 @@ table.addEventListener('click',(event) => {
     }
     
   }
+
+
 })
 
 const btn = document.querySelector('.form > button')
@@ -99,6 +105,7 @@ const searchField = document.querySelector("input.edit")
 searchField.addEventListener("input", (event) => handleSearchByName(event.target.value, tableList))
 
 document.addEventListener('DOMContentLoaded', () => renderTable(tableList))
+
 
 
 
@@ -164,6 +171,8 @@ del.addEventListener('click',deleteTr) */
 createArr() */
 
  
+
+
 
 
 
