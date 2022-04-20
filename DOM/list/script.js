@@ -1,7 +1,7 @@
 const tableList = [
   {id: 1, name: "Осип Мандельштам", date: "2022-04-10", row: 8, place: 2},
   {id: 2, name: "Оптитмус Прайм", date: "2022-04-11", row: 9, place: 3},
-  {id: 3, name: "Настя", date: "2022-04-12", row: 5, place: 1},
+  {id: 3, name: "Рыба", date: "2022-04-12", row: 5, place: 1},
   {id: 4, name: "Мерри Джейн", date: "2022-04-12", row: 3, place: 7},
 ]
 
@@ -66,43 +66,38 @@ const tableSort = (list, item, direction) =>{
 
 const tableColumnNames = document.querySelectorAll('.table thead th')
 tableColumnNames.forEach((th) => th.addEventListener('click', (e) => {
-  e.target.classList.toggle('down')
+  const del = document.querySelectorAll('th[data-sort=down]')
+  del.forEach((item)=>{
+    item.dataset.sort = 'up'
+    item.classList = ''
+  })
+    /* e.target.classList.toggle('down') */
   // TODO очищать все классы down кроме target
-  if(e.target.dataset.sort === 'up'){
+  if(e.target.dataset.sort === 'up'){ 
     e.target.dataset.sort = 'down'
     tableSort(tableList, e.target.dataset.field, 1)
     renderTable(tableList)
-  } else {
+    e.target.classList.add('down')
+  }  else {
     tableSort(tableList, e.target.dataset.field, -1)
     renderTable(tableList)
     e.target.dataset.sort = 'up'
-  }
+    e.target.classList.remove('down')
+  } 
 }))
 
 const handleCheck = (id, target) => {
-
-  /***
-   *
-   * We have stopped here
-   *
-   */
-
-
-
-// if(checkList.includes(id)) {
-//   checkList = checkList.filter(f => f !== id)
-// } else {
-//   checkList.push(id)
-// }
 
   const checkboxList = document.querySelectorAll('input[type=checkbox]')
   const isChecked = target.checked
 
   checkboxList.forEach(checkbox => checkbox.checked = false)
   isChecked ? target.checked = true : target.checked = false
-  checkList ? checkList = null : checkList = id
-
-  console.log(checkList)
+  if(isChecked){
+    checkList = id
+  }else{
+    checkList = null
+  }
 }
 
 
@@ -133,6 +128,22 @@ EditBtn.addEventListener('click', (e) => {
   }
 })
 
+const deleteChild = (num) => {
+  if(checkList === null) {
+    const modalContent = document.querySelector('.modal-container .text')
+    modalContent.textContent = 'Выберите пользователя'
+    const getModelWindow = document.querySelector('.modal-container')
+    getModelWindow.style.display = 'flex'
+  }else{
+    const itemIndex = tableList.findIndex(f => f.id === num)
+   tableList.splice(itemIndex,1)
+   renderTable(tableList)
+  }
+}
+
+const del = document.querySelector('.del')
+del.addEventListener('click',() =>(deleteChild(checkList)))
+
 const btn = document.querySelector('.form > button')
 btn.addEventListener('click', () => handleAddRow(tableList))
 
@@ -140,73 +151,4 @@ const searchField = document.querySelector("input.edit")
 searchField.addEventListener("input", (event) => handleSearchByName(event.target.value, tableList))
 
 document.addEventListener('DOMContentLoaded', () => renderTable(tableList))
-
-
-
-
-// const createAndAddNewChild = () =>{
-//   const listForm = document.querySelectorAll('.form > input')
-//   const tr = document.createElement('tr')
-//   const table = document.querySelector('table')
-//   const id = document.createElement('td')
-//   const check = document.createElement('input')
-//   const checkTd = document.createElement('td')
-//
-//   check.type = 'checkbox'
-//   const allTr = table.querySelectorAll('tr')
-//   if(+allTr[allTr.length - 1].querySelectorAll('td')[0].textContent){
-//     id.textContent = +allTr[allTr.length - 1].querySelectorAll('td')[0].textContent + 1
-//   }else id.textContent = 1
-//
-//
-//
-//   table.append(tr)
-//   checkTd.append(check)
-//   tr.prepend(id)
-//   listForm.forEach((input)=>{
-//     const td = document.createElement('td')
-//     td.textContent = input.value
-//     tr.append(td)
-//   })
-//   tr.append(checkTd)
-// }
-
-// const btn2 = document.querySelector('.form > button')
-// btn2.addEventListener('click',createAndAddNewChild)
-//
-//
-//  deleteTr = () =>{
-//   allCheck = document.querySelectorAll('input[type = checkbox]')
-//   allCheck.forEach((item) => {
-//     if(item.checked){
-//      item.closest('tr').remove()
-//     }
-//   })
-// }
-// const del = document.querySelector('.del');
-// del.addEventListener('click',deleteTr)
-
-// const createArr = () => {
-//   const trList = document.querySelectorAll('tr')
-//   const tableList = []
-//   const firstTdList = trList[0].querySelectorAll('th')
-//
-//   const rows = document.querySelectorAll('tbody tr')
-//   rows.forEach((row) => {
-//     const rowObj = {}
-//     row.querySelectorAll('td').forEach((cell, key) => {
-//       firstTdList.forEach((field, fieldKey) => {
-//         if(key === fieldKey) {
-//           rowObj[field.dataset.field] = cell.textContent
-//         }
-//       })
-//     })
-//     tableList.push(rowObj)
-//   })
-//
-//   console.log(tableList)
-//
-// }
-//
-// createArr()
 

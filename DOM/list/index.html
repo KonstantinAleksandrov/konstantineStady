@@ -24,7 +24,7 @@
         <th data-field="date" data-sort="up">Дата</th>
         <th data-field="row" data-sort="up">Ряд</th>
         <th data-field="place" data-sort="up">Место</th>
-        <td>Выбрать</td>
+        <td class="thLast">Выбрать</td>
       </tr>
       </thead>
       <tbody>
@@ -46,7 +46,7 @@
       </tr>
       <tr>
         <td>3</td>
-        <td>Настя</td>
+        <td>Рыба</td>
         <td>22.04.2012</td>
         <td>8</td>
         <td>9</td>
@@ -65,11 +65,28 @@
     </table>
     <button class="edit open-modal">Редактировать</button>
     <button class="del edit">Удалить</button>
-    <input class="edit"/> Найти
+    <input class="edit inp"> <span class="edit">Найти</span>
   </div>
 </div>
 
 <div class="modal-container">
+  <div class="modal-window">
+    <div class="modal-header">
+      <div class="title">Modal-window</div>
+      <div  data-close="close" class="close cross">
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="modal-content">
+      <div class="text">Modal body text goes here.</div>
+    </div>
+    <div class="model-footer">
+      <div data-close="close" class="btn close">Save changes</div>
+    </div>
+  </div>
+</div>
+<div data-delSave="del" class="modal-container">
   <div class="modal-window">
     <div class="modal-header">
       <div class="title">Modal-window</div>
