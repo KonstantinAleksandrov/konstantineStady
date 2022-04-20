@@ -20,11 +20,13 @@
 }
 .form{
     margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
 }
+
 .form input{
     max-width: 120px;
     display: inline-block;
-    margin-right: 20px;
     padding: 5px;
     border: 2px solid black;
     border-radius: 5px;

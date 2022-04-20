@@ -35,7 +35,7 @@ const renderTable = (list) => {
 const handleAddRow = (list) => {
   const formInputs = document.querySelectorAll('.form > input')
   const rowObject = {}
-  rowObject.id = list.at(-1).id + 1
+  rowObject.id = list.at(-1).id + 1 // TODO use length
 
   formInputs.forEach((input) => {
     rowObject[input.name] = input.value
@@ -66,6 +66,16 @@ const tableSort = (list, item, direction) =>{
 
 const tableColumnNames = document.querySelectorAll('.table thead th')
 tableColumnNames.forEach((th) => th.addEventListener('click', (e) => {
+
+
+  if(e.target.dataset.sort === "down") {
+    e.target.dataset.sort = 'up'
+    tableSort(tableList, e.target.dataset.field, -1)
+    renderTable(tableList)
+    e.target.classList.remove('down')
+    return
+  }
+
   const del = document.querySelectorAll('th[data-sort=down]')
   del.forEach((item)=>{
     item.dataset.sort = 'up'
