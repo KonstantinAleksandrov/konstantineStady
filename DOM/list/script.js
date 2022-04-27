@@ -29,13 +29,27 @@ const renderTable = (list) => {
     tr.append(td)
 
     tableBody.append(tr)
+    tr.addEventListener('click',function(event){
+      tr.classList.toggle('_active')
+      if(tr.classList == '_active'){
+      tr.style.backgroundColor = 'rgba(0,224,253,0.3)'
+      checker.checked = true
+      checkList = row.id
+      }else{
+      tr.style.backgroundColor = 'white'
+      checker.checked = false
+      checkList = null
+      } 
+      //?????????????????????????????????????????????????????????????????
+    })
   })
 }
 
 const handleAddRow = (list) => {
   const formInputs = document.querySelectorAll('.form > input')
   const rowObject = {}
-  rowObject.id = list.at(-1).id + 1 // TODO use length
+  const tempId = createAndSortIdArr(list)
+  rowObject.id = tempId[tempId.length - 1] + 1
 
   formInputs.forEach((input) => {
     rowObject[input.name] = input.value
@@ -63,6 +77,25 @@ const tableSort = (list, item, direction) =>{
   })
 }
 
+const createAndSortIdArr = (arr) =>{
+  let a = []
+  for(let i = 0;i < arr.length;i++){
+    a.push(arr[i].id)
+  }
+  for(let i = 0,endI = a.length - 1; i < endI; i++){
+      
+    for(let j = 0,endJ = endI - i; j < endJ; j++){
+        if(a[j] > a[j + 1]){
+            let temp = a[j]
+            a[j] = a[j + 1]
+            a[j + 1] = temp
+        } 
+    }
+
+
+  }
+ return a
+}
 
 const tableColumnNames = document.querySelectorAll('.table thead th')
 tableColumnNames.forEach((th) => th.addEventListener('click', (e) => {
@@ -81,8 +114,6 @@ tableColumnNames.forEach((th) => th.addEventListener('click', (e) => {
     item.dataset.sort = 'up'
     item.classList = ''
   })
-    /* e.target.classList.toggle('down') */
-  // TODO очищать все классы down кроме target
   if(e.target.dataset.sort === 'up'){ 
     e.target.dataset.sort = 'down'
     tableSort(tableList, e.target.dataset.field, 1)
@@ -95,6 +126,7 @@ tableColumnNames.forEach((th) => th.addEventListener('click', (e) => {
     e.target.classList.remove('down')
   } 
 }))
+
 
 const handleCheck = (id, target) => {
 
@@ -161,4 +193,5 @@ const searchField = document.querySelector("input.edit")
 searchField.addEventListener("input", (event) => handleSearchByName(event.target.value, tableList))
 
 document.addEventListener('DOMContentLoaded', () => renderTable(tableList))
+
 

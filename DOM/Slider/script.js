@@ -2,7 +2,7 @@
 const getSliderItems = document.querySelectorAll('.image')
 const arrSliderItems = [...getSliderItems]
 const imageList = ["./image/1.jpg", "image/2.jpg", "image/3.jpg", "image/4.jpg"]
-let activeIndexImage = 1
+let activeIndexImage = 0
 
 const sliderRender = (index, isActive) => {
 
@@ -10,18 +10,19 @@ const sliderRender = (index, isActive) => {
 
     const newImgContainer = document.createElement('div')
     newImgContainer.classList.add('image')
-    if(isActive) {
+     /* if(isActive) {
       let position = 0
       const intervalId = setInterval(() => {
         if(position >= 600){
           clearInterval(intervalId)
         } else {
           position = position + 50
-          newImgContainer.style.transform = `translate(-${position}px, 0)` // TODO при скроле влево направление скрола меняется на положительное
+          newImgContainer.style.transform = `translate(-${position}px, 0)`
+          console.log(position) // TODO при скроле влево направление скрола меняется на положительное
         }
       }, 50)
       newImgContainer.classList.add('active') // transform: translate(-600px, 0);
-    }
+    }  */
     const newImgEl = document.createElement('img')
     newImgEl.setAttribute('src', imageList[index])
     newImgEl.setAttribute('alt', "image")

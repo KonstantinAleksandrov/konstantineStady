@@ -37,7 +37,7 @@ const bubbleSort = (arr) =>{
 
 //быстрая сортировка
 
-const partition = (item,left,right) => {
+/* const partition = (item,left,right) => {
     let i = left;
     let j = right
     let mid = item[Math.floor((i + j) / 2)];
@@ -76,13 +76,13 @@ const quickSort = (item,left,right) => {
         return item
     }
 
-}
+} */
 
 
 //бинарный поиск
 
 const binSearch = (item,arr) =>{
-    const list =  quickSort(arr)
+    const list =  bubbleSort(arr)
     let low = 0
     let high = list.length - 1
     console.log(list)
