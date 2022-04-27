@@ -240,3 +240,7 @@ td:last-child {
      align-items: center;
      margin-bottom: 0;
  }
+
+ ._active {
+     background-color: rgba(0,224,253,0.3);
+ }

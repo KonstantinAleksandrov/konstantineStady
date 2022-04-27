@@ -30,16 +30,21 @@ const renderTable = (list) => {
 
     tableBody.append(tr)
     tr.addEventListener('click',function(event){
-      tr.classList.toggle('_active')
-      if(tr.classList == '_active'){
-      tr.style.backgroundColor = 'rgba(0,224,253,0.3)'
-      checker.checked = true
-      checkList = row.id
-      }else{
-      tr.style.backgroundColor = 'white'
-      checker.checked = false
-      checkList = null
-      } 
+      const isPrevTrActive = tr.classList.contains('_active')
+      document.querySelectorAll('tr').forEach(item => {
+        item.classList.remove('_active')
+        item.querySelector('input') ? item.querySelector('input').checked = false : () => false
+        checkList = null
+      })
+      
+      if(!isPrevTrActive){
+        tr.classList.add('_active')
+        tr.querySelector('input').checked = true
+        checkList = row.id
+      } else {
+        checkList = null
+      }
+
       //?????????????????????????????????????????????????????????????????
     })
   })

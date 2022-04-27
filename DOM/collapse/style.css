@@ -99,6 +99,7 @@
     right: 10px;
     transition: all 0.3s ease 0s;
 }
+
 .section-header::after{
     content: '';
     width: 20px;
@@ -110,15 +111,26 @@
     transition: all 0.3s ease 0s;
     transform: rotate(90deg);
 }
+
 .section-header.active::after{
     transform: rotate(0deg);
 }
+
 .section-body {
-    padding: 20px;
-    transition: all 0.3s ease 0s;
-    display: none;
+    transition-duration: 0.5s;
+    min-height: 0;
+    max-height: 0;
+    height: 0;
+    opacity: 0;
 }
-.open{
-  display: block;
+
+.section-body > div {
+    padding: 20px;
+}
+
+.open {
+    max-height: 500px;
+    height: fit-content;
+    opacity: 1;
 }
 

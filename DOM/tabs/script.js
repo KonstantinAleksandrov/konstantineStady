@@ -9,7 +9,7 @@ allTabs.forEach(elem =>{
 
     button.addEventListener('click',(event)=>{
         const allActive = document.querySelectorAll('.active')
-        allActive.forEach(item =>{
+        allActive.forEach(item => {
             item.classList.remove('active')
         })
 

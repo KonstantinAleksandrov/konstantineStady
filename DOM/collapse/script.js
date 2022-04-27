@@ -9,6 +9,7 @@ arrAllSection.forEach(item => {
         const activeSpoller = document.querySelectorAll('.active')
         spollerTitle.classList.toggle('active')
         spollerTitle.nextElementSibling.classList.toggle('open')
+
         if(activeSpoller.length > 0){
             activeSpoller.forEach(elem =>{
                elem.classList.remove('active')
