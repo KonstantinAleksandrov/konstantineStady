@@ -10,7 +10,7 @@ const sliderRender = (index, isActive) => {
 
     const newImgContainer = document.createElement('div')
     newImgContainer.classList.add('image')
-     /* if(isActive) {
+     if(isActive) {
       let position = 0
       const intervalId = setInterval(() => {
         if(position >= 600){
@@ -22,7 +22,7 @@ const sliderRender = (index, isActive) => {
         }
       }, 50)
       newImgContainer.classList.add('active') // transform: translate(-600px, 0);
-    }  */
+    } 
     const newImgEl = document.createElement('img')
     newImgEl.setAttribute('src', imageList[index])
     newImgEl.setAttribute('alt', "image")
