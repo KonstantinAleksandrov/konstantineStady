@@ -1,5 +1,5 @@
 'use strict'
-const input = document.querySelector('input[name=login]')
+/* const input = document.querySelector('input[name=login]')
 const button = document.querySelector('button#launch')
 const rocket = document.querySelector('div#rocket')
 const landingZone = document.querySelector('div#landing')
@@ -18,7 +18,7 @@ input.addEventListener('input', (event) => {
     const loginEl = document.querySelector('div#login')
     loginEl.textContent = string
   }, 1500)
-})
+}) */
 
 // button.addEventListener('click', () => {
 //   let bottom = 20;
@@ -38,7 +38,7 @@ input.addEventListener('input', (event) => {
 // })
 
 
-button.addEventListener('click', () => {
+/* button.addEventListener('click', () => {
   let bottom = 20;
   let left = 300;
   window.requestAnimationFrame(function rocketLaunch(){
@@ -81,3 +81,5 @@ rocket.addEventListener('mouseup', (e) => {
   insideY = 0
   insideX = 0
 })
+
+}) */

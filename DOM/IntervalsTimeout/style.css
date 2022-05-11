@@ -4,7 +4,7 @@ body{
     margin: 0;
 }
 
-#rocket {
+/* #rocket {
     background-color: #FF7931;
     width: 20px;
     height: 200px;
@@ -15,14 +15,40 @@ body{
     bottom: 20px;
     left: 300px;
     transform: rotate(25deg);
-    z-index: 9;
-}
+} */
 
-#landing {
-    background: #252B42;
-    width: 400px;
+.block{
+    height: 500px;
+    width: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: 2px solid black;
+}
+.ball{
+    width: 100px;
     height: 100px;
-    position:absolute;
-    bottom: 10px;
-    left: 600px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.ball img {
+    width: 100%;
+    object-fit: cover;
+}
+.button{
+    width: 50px;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid orange;
+    background-color: lightsalmon;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
 }
