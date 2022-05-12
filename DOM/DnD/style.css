@@ -1,0 +1,27 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
+#rocket {
+    background-color: #FF7931;
+    width: 200px;
+    height: 200px;
+    /*border-top-left-radius: 100%;*/
+    /*border-top-right-radius: 100%;*/
+
+    position:absolute;
+    bottom: 20px;
+    left: 300px;
+    /*transform: rotate(25deg);*/
+}
+
+#landing {
+    background: #252B42;
+    width: 400px;
+    height: 100px;
+    position:absolute;
+    bottom: 10px;
+    left: 600px;
+}

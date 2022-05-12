@@ -1,5 +1,13 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a8a8c59603c74c3500ed794ab0fa173387c077de
 /* #rocket {
     background-color: #FF7931;
     width: 20px;
