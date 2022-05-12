@@ -38,7 +38,7 @@ input.addEventListener('input', (event) => {
 // })
 
 
-/* button.addEventListener('click', () => {
+button.addEventListener('click', () => {
   let bottom = 20;
   let left = 300;
   window.requestAnimationFrame(function rocketLaunch(){
@@ -82,4 +82,4 @@ rocket.addEventListener('mouseup', (e) => {
   insideX = 0
 })
 
-}) */
+})
