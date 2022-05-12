@@ -1,0 +1,42 @@
+section {
+    width: 1300px;
+    height: 350px;
+    background-color: #ccc;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-item: center;
+    overflow: hidden;
+}
+
+section > div {
+    display: flex;
+    height: 350px;
+}
+
+section .image {
+    height: 350px;
+    width: 400px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+section > span {
+    position: absolute;
+    top: 135px;
+    cursor: pointer;
+    font-size:30px;
+    color:#fff;
+    z-index:9;
+    text-shadow: 1px 1px 1px #000;
+}
+
+section > span:first-child {
+    left: 10px;
+}
+
+section > span:last-child {
+    right: 10px;
+}
