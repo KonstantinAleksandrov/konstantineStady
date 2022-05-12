@@ -38,7 +38,7 @@ input.addEventListener('input', (event) => {
 // })
 
 
-/* button.addEventListener('click', () => {
+button.addEventListener('click', () => {
   let bottom = 20;
   let left = 300;
   window.requestAnimationFrame(function rocketLaunch(){
@@ -53,10 +53,9 @@ input.addEventListener('input', (event) => {
   })
 })
 
-<<<<<<< HEAD
-}) */
 
-=======
+
+
 rocket.addEventListener('mousedown', (e) => {
   isDrag = true
   insideY = e.offsetY
@@ -86,5 +85,3 @@ rocket.addEventListener('mouseup', (e) => {
   insideX = 0
 })
 
-}) */
->>>>>>> a8a8c59603c74c3500ed794ab0fa173387c077de
