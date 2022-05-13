@@ -1,11 +1,11 @@
 'use strict'
 class CreateSlider {
-    constructor() {
-        this.arrItems = [...document.querySelectorAll('.slider-item')] 
-        this.slider = document.querySelector('.slider')
-        this.sliderContainer = document.querySelector('.slider-container')
-        this.nextSlide = document.querySelector('.next-arrow')
-        this.previousSlide = document.querySelector('.previous-arrow')
+    constructor(fullItems,mainBlock,itemsContainer,next,previous) {
+        this.arrItems = [...fullItems] 
+        this.slider = mainBlock
+        this.sliderContainer = itemsContainer
+        this.nextSlide = next
+        this.previousSlide = previous
         this.counter = 0
         this.arrDots = []
     }
@@ -66,7 +66,13 @@ class CreateSlider {
     }
 }
 
-const mySlider = new CreateSlider()
+const mySlider = new CreateSlider(
+    document.querySelectorAll('.slider-item'),
+    document.querySelector('.slider'),
+    document.querySelector('.slider-container'),
+    document.querySelector('.next-arrow'),
+    document.querySelector('.previous-arrow')
+)
 mySlider.sliderStart()
 
 
