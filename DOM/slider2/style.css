@@ -72,65 +72,73 @@
     font-weight: inherit;
   }
   /*------------------------------------*/
-  .wrapper{
-      max-width: 600px;
-      height: 400px;
-      margin: 50px auto;
-      position: relative;
-  }
-  .slider-container{
-    width: 100%;
-    height: 100%;
+  section {
+    width: 400px;
+    height: 350px;
+    background-color: #ccc; 
+    position: relative;
     display: flex;
-    
-
+    flex-direction: column;
+    justify-item: center;
+    overflow: hidden;
+    background: #fff;
   }
   
-  .slider-item{
-      flex: 0 0 100%;
-      height: 100%;
-      transition: all 0.5s ease 0s;
-      
-  }
-  .slider-item:first-child{
-  }
-  .slider-item img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-  }
-  .arrows{
-    width: 100%;
-    height: 100%;
+  section > div {
     position: absolute;
-    top: 0;
+    top:0;
     left: 0;
+    width: 400px;
+    height: 350px;
+    height:100%;
+    background-image: url('https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
   }
-  .next-arrow{
-      width: 30px;
-      height: 30px;
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      z-index: 5;
-      cursor: pointer;
+  
+  section > div.clone-img {
+    position:absolute;
+    z-index:10;
+    width: 400px;
+    height: 350px;
+    top:0;
+    left:0;
+    transition-duration: .5s;
   }
-  .next-arrow img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-  }
-  .previous-arrow{
-    width: 30px;
-    height: 30px;
+  
+  section > span {
     position: absolute;
-    top: 50%;
-    left: 10px;
-    z-index: 5;
+    top: 135px;
     cursor: pointer;
-}
-.previous-arrow img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+    font-size:30px;
+    color:#fff;
+    z-index:9;
+    text-shadow: 1px 1px 1px #000;
+  }
+  
+  section > span:first-child {
+    left: 10px;
+  }
+  
+  section > span:last-child {
+    right: 10px;
+  }
+  
+  
+  section > div.left-right-show {
+    left:0;
+  }
+  
+  section > div.left-right-hide {
+    left:400px;
+  }
+  
+  section > aside {
+    width: 400px;
+    height: 350px;
+    background: #fff;
+    z-index: 1;
+    position: absolute;
+  }
