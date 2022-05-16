@@ -10,7 +10,7 @@ class CreateSlider {
         this.arrDots = []
     }
 
-    createDots = () =>{
+    createDots = () => {
         const dots = document.createElement('div')
         dots.classList.add('dots')
         for(let i = 0;i < this.arrItems.length;i++){
@@ -23,7 +23,7 @@ class CreateSlider {
         this.arrDots[0].style.backgroundColor = 'black';
     }
     
-    swipeSlide = () =>{
+    swipeSlide = () => {
         if(this.counter > this.arrItems.length - 1){
             this.counter = 0 
         }else if(this.counter < 0){
