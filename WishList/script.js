@@ -95,7 +95,12 @@ const addGameInWishList = (event,game) =>{
     event.target.textContent = 'В списке'
     event.target.style.color = 'rgb(8,194,119)'
   }
-  
+  const clearButton = document.querySelector('.clear')
+  if(wishList.length && !clearButton){
+    clearAll()
+  }else if(!wishList.length){
+    clearButton.remove()
+  }
   createCardListItem()
 }
 
@@ -156,11 +161,10 @@ const clearAll = () =>{
     allButtons.forEach((game)=>{
       game.style.color = 'rgb(0,206,255)'
       game.textContent = 'Добавить'
-      //clearButton.remove()
+      clearButton.remove()
     })
   })
   card.append(clearButton)
 }
-clearAll()
 
 
