@@ -95,12 +95,6 @@ const addGameInWishList = (event,game) =>{
     event.target.textContent = 'В списке'
     event.target.style.color = 'rgb(8,194,119)'
   }
-  const clearButton = document.querySelector('.clear')
-  if(wishList.length && !clearButton){
-    clearAll()
-  }else if(!wishList.length){
-    clearButton.remove()
-  }
   createCardListItem()
 }
 
@@ -125,6 +119,8 @@ const createCardListItem = () =>{
     closeCross.append(firsSpan)
     closeCross.append(secondSpan)
   })
+
+  
   allprice = wishList.reduce((sum,item)=>{
     if(!item.price){
       item.price = 0
@@ -133,6 +129,14 @@ const createCardListItem = () =>{
   } ,0)
   const sum = document.querySelector('.sum > span')
   sum.textContent = allprice
+
+
+  const clearButton = document.querySelector('.clear')
+  if(wishList.length && !clearButton){
+    clearAll()
+  }else if(!wishList.length){
+    clearButton.remove()
+  }
 }
 
 const deleteCardListItem = (item) => {
