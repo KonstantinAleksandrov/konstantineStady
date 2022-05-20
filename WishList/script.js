@@ -48,6 +48,7 @@ const renderProducts = (productList) => {
 } */
 
 let wishList = []
+let dragList = []
 let allprice = 0
 
 const renderProducts = (gameList)=>{
@@ -56,6 +57,10 @@ const renderProducts = (gameList)=>{
   Object.values(gameList).forEach((game)=>{
     const item = document.createElement('div')
     item.classList.add('item')
+    item.setAttribute('draggable',true)
+    item.addEventListener('dragstart',(event)=>{
+      event.dataTransfer.setData('text/html',game.name)
+    })
 
     const imgContainer = document.createElement('div')
     imgContainer.classList.add('img-container')
@@ -66,7 +71,7 @@ const renderProducts = (gameList)=>{
     const button = document.createElement('div')
     button.classList.add('button')
     button.textContent = 'Добавить'
-    button.addEventListener('click',(event)=>addGameInWishList(event,game))
+    button.addEventListener('click',(event)=>addGameInWishList(event.target,game))
 
     const name = document.createElement('div')
     name.classList.add('name')
@@ -86,14 +91,14 @@ const renderProducts = (gameList)=>{
 }
 
 const addGameInWishList = (event,game) =>{
-  if(wishList.includes(game)){
-    wishList = wishList.filter((f)=> f.name !== game.name)
-    event.target.textContent = 'Добавить'
-    event.target.style.color = 'rgb(0,206,255)'
+  if(wishList.includes(game) || wishList.includes(game.name)){
+    wishList = wishList.filter((f)=> f.name !== game.name && f !== game.name)
+    event.textContent = 'Добавить'
+    event.style.color = 'rgb(0,206,255)' 
   }else{
     wishList = [...wishList,game]
-    event.target.textContent = 'В списке'
-    event.target.style.color = 'rgb(8,194,119)'
+    event.textContent = 'В списке'
+    event.style.color = 'rgb(8,194,119)' 
   }
   createCardListItem()
 }
@@ -105,7 +110,11 @@ const createCardListItem = () =>{
   cardList.innerHTML = ''
   wishList.forEach((item)=>{
     const li = document.createElement('li')
-    li.textContent = item.name
+    if(item.name){
+      li.textContent = item.name
+    }else{
+      li.textContent = item
+    }
     cardList.append(li)
 
     const closeCross = document.createElement('div')
@@ -172,3 +181,25 @@ const clearAll = () =>{
 }
 
 
+
+  
+
+const card = document.querySelector('.card')
+  card.addEventListener('dragover',(event)=>{
+  event.preventDefault()
+})
+
+  card.addEventListener('drop',(event)=>{
+    const data = event.dataTransfer.getData('text/html') 
+    createDragArr(data)
+    createCardListItem()
+    console.log(data)
+})
+
+const createDragArr = (text) =>{
+  if(wishList.includes(text)){
+    return 
+  }else{
+    wishList = [...wishList,text]
+  }
+}
