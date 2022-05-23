@@ -47,9 +47,10 @@ const renderProducts = (productList) => {
   })
 } */
 
-let wishList = []
-let dragList = []
-let allprice = 0
+let wishList = [] // TODO сохранить эти данные в localstorage
+let dragElement = null
+let dragTarget = null
+let allprice = 0 // TODO сохранить эти данные в cookies
 
 const renderProducts = (gameList)=>{
   const listContainer = document.querySelector('.list-container')
@@ -59,7 +60,8 @@ const renderProducts = (gameList)=>{
     item.classList.add('item')
     item.setAttribute('draggable',true)
     item.addEventListener('dragstart',(event)=>{
-      event.dataTransfer.setData('text/html',game.name)
+      dragElement = game
+      dragTarget = event?.path.find(f => f.className === 'item').querySelector('.button')
     })
 
     const imgContainer = document.createElement('div')
@@ -71,7 +73,7 @@ const renderProducts = (gameList)=>{
     const button = document.createElement('div')
     button.classList.add('button')
     button.textContent = 'Добавить'
-    button.addEventListener('click',(event)=>addGameInWishList(event.target,game))
+    button.addEventListener('click',(event)=>addGameInWishList(event.target, game))
 
     const name = document.createElement('div')
     name.classList.add('name')
@@ -90,7 +92,7 @@ const renderProducts = (gameList)=>{
   })
 }
 
-const addGameInWishList = (event,game) =>{
+const addGameInWishList = (event, game) =>{
   if(wishList.includes(game) || wishList.includes(game.name)){
     wishList = wishList.filter((f)=> f.name !== game.name && f !== game.name)
     event.textContent = 'Добавить'
@@ -181,25 +183,14 @@ const clearAll = () =>{
 }
 
 
-
-  
-
 const card = document.querySelector('.card')
-  card.addEventListener('dragover',(event)=>{
+
+card.addEventListener('dragover',(event) => {
   event.preventDefault()
 })
 
-  card.addEventListener('drop',(event)=>{
-    const data = event.dataTransfer.getData('text/html') 
-    createDragArr(data)
-    createCardListItem()
-    console.log(data)
+  card.addEventListener('drop',(event) => {
+    dragTarget && dragElement && addGameInWishList(dragTarget, dragElement)
+    dragElement = null
+    dragTarget = null
 })
-
-const createDragArr = (text) =>{
-  if(wishList.includes(text)){
-    return 
-  }else{
-    wishList = [...wishList,text]
-  }
-}
