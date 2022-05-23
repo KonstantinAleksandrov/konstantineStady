@@ -51,6 +51,8 @@ let wishList = [] // TODO сохранить эти данные в localstorage
 let dragElement = null
 let dragTarget = null
 let allprice = 0 // TODO сохранить эти данные в cookies
+let myStorage = window.localStorage
+
 
 const renderProducts = (gameList)=>{
   const listContainer = document.querySelector('.list-container')
@@ -89,6 +91,9 @@ const renderProducts = (gameList)=>{
     item.append(name)
     item.append(price)
     listContainer.append(item)
+    if(Object.values(myStorage).find(f=> f === game.name)){
+      addGameInWishList(button,game)
+    }
   })
 }
 
@@ -96,11 +101,13 @@ const addGameInWishList = (event, game) =>{
   if(wishList.includes(game) || wishList.includes(game.name)){
     wishList = wishList.filter((f)=> f.name !== game.name && f !== game.name)
     event.textContent = 'Добавить'
-    event.style.color = 'rgb(0,206,255)' 
+    event.style.color = 'rgb(0,206,255)'
+    myStorage.removeItem(game.name)
   }else{
     wishList = [...wishList,game]
     event.textContent = 'В списке'
     event.style.color = 'rgb(8,194,119)' 
+    myStorage.setItem(game.name,game.name) 
   }
   createCardListItem()
 }
@@ -140,7 +147,7 @@ const createCardListItem = () =>{
   } ,0)
   const sum = document.querySelector('.sum > span')
   sum.textContent = allprice
-
+  document.cookie = encodeURIComponent('sum') + '=' + encodeURIComponent(allprice)
 
   const clearButton = document.querySelector('.clear')
   if(wishList.length && !clearButton){
@@ -153,6 +160,7 @@ const createCardListItem = () =>{
 const deleteCardListItem = (item) => {
   wishList = wishList.filter((f)=> f.name !== item.name)
   const allGames = [...document.querySelectorAll('.name')]
+  myStorage.removeItem(item.name)
   allGames.forEach((game)=>{
     if(game.textContent === item.name){
      game.previousElementSibling.style.color = 'rgb(0,206,255)'
@@ -176,6 +184,7 @@ const clearAll = () =>{
     allButtons.forEach((game)=>{
       game.style.color = 'rgb(0,206,255)'
       game.textContent = 'Добавить'
+      myStorage.clear()
       clearButton.remove()
     })
   })
@@ -194,3 +203,12 @@ card.addEventListener('dragover',(event) => {
     dragElement = null
     dragTarget = null
 })
+
+createCookie = () =>{
+  const sum = document.querySelector('.sum > span')
+  if(!sum.textContent){
+    let cookies = document.cookie.split('=')
+    sum.textContent = cookies[1]
+  }
+}
+ createCookie() 
