@@ -1,0 +1,255 @@
+@charset "UTF-8";
+/*------------------------------------*/
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+  
+  *, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  :focus, :active {
+    outline: none;
+  }
+  
+  a:focus, a:active {
+    outline: none;
+  }
+  
+  nav, footer, header, aside {
+    display: block;
+  }
+  
+  html, body {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 16px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  input, button, textarea {
+    font-family: inherit;
+  }
+  
+  input::-ms-clear {
+    display: none;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+  
+  a, a:visited {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: none;
+  }
+  
+  ul li {
+    list-style: none;
+  }
+  
+  img {
+    vertical-align: top;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  /*------------------------------------*/
+ .wrapper{
+     max-width: 850px;
+     margin: 50px auto;
+     display: flex;
+     background-color: rgb(16, 122, 187);
+     color: rgb(30, 60, 77);
+     padding: 10px;
+     font-size: 14px;
+ }
+ .collum-container{
+     flex: 0 1 33.333%;
+     margin-right: 10px;
+ }
+ .collum-container:last-child{
+     margin-right: 0;
+ }
+
+ .collum{
+    background-color: rgb(222, 226, 229);
+    border-radius: 5px;
+    padding-top: 10px;
+ }
+ .collum-header{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-left: 10px;
+     margin-right: 10px;
+     margin-bottom: 20px;
+ }
+ .header-title{
+     text-transform: uppercase;
+     font-weight: 600;
+ }
+ .header-button{
+     font-size: 20px;
+     cursor: pointer;
+     font-weight: 600;
+     color: rgb(121, 140, 151);
+ }
+ .header-button:hover{
+  color: rgb(30, 60, 77);
+  transition: all 0.3s ease 0s;
+}
+ .collum-body{}
+ .card-list{
+     margin: 0 10px 10px 10px; 
+ }
+ .body__buttons{
+     color: rgb(121, 140, 151);
+ }
+ .body__button-title{
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s ease 0s;
+ }
+ .body__button-title:hover{
+  background-color: rgb(121, 140, 151);
+  color: rgb(30, 60, 77);
+}
+.card-item{
+    max-height: 150px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+.card-item:last-child{
+  margin-bottom: 0;
+}
+.card-item:hover .cross{
+    opacity: 1;
+}
+.item-image{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+}
+.item-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.item-text{
+    margin: 10px 10px 10px 10px; 
+    color: rgb(30, 60, 77);
+}
+.cross{
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(121, 140, 151,0.6);
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s ease 0s;
+}
+
+.cross span{
+    width: 16px;
+    height: 2px;
+    background-color: rgb(30, 60, 77) ;
+    position: absolute;
+    left: 7px;
+    top: 13px;
+    transform: rotate(-45deg);
+}
+.cross span:last-child{
+    transform: rotate(45deg);
+}
+
+.body__form{
+  padding: 10px;
+  
+}
+textarea{
+  width: 100%;
+  resize: none;
+  padding: 10px;
+  border-radius: 5px;
+  min-height: 70px;
+  margin-bottom: 10px;
+  color: rgb(30, 60, 77);
+}
+.form-footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.addOrClose{
+  display: flex;
+  align-items: center;
+}
+.form-footer__add{
+  flex: 0 0 90px;
+  background-color: rgb(92, 168, 77);
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.form-footer__close{
+  flex: 0 0 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.form-footer__close:hover span{
+  background-color: rgb(30, 60, 77);
+}
+.form-footer__close span{
+    transition: all 0.3s ease 0s;
+    width: 16px;
+    height: 2px;
+    background-color:rgb(121, 140, 151);
+    position: absolute;
+    left: 7px;
+    top: 13px;
+    transform: rotate(-45deg);
+}
+.form-footer__close span:last-child{
+  transform: rotate(45deg);
+}
+.form-footer__button{
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: rgb(121, 140, 151);
+}
+.form-footer__button:hover{
+  color: rgb(30, 60, 77);
+  transition: all 0.3s ease 0s;
+}
