@@ -37,19 +37,19 @@
                     </ul>
                     <div class="body__buttons">
                         <div class="body__button-title">+ Add another card</div>
-                        <form class="body__form" action="">
-                            <textarea placeholder="Enter a title for this card..." name=""></textarea>
-                            <div class="form-footer">
-                                <div class="addOrClose">
-                                    <div class="form-footer__add">Add card</div>
-                                    <div class="form-footer__close">
-                                        <span></span>
-                                        <span></span>
-                                    </div>
-                                </div>
-                                <div class="form-footer__button">...</div>
-                            </div>
-                        </form>
+<!--                        <form class="body__form" action="">-->
+<!--                            <textarea placeholder="Enter a title for this card..." name=""></textarea>-->
+<!--                            <div class="form-footer">-->
+<!--                                <div class="addOrClose">-->
+<!--                                    <div class="form-footer__add">Add card</div>-->
+<!--                                    <div class="form-footer__close">-->
+<!--                                        <span></span>-->
+<!--                                        <span></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="form-footer__button">...</div>-->
+<!--                            </div>-->
+<!--                        </form>-->
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                     </ul>
                     <div class="body__buttons">
                         <div class="body__button-title">+ Add another card</div>
-                        <form class="body__form" action=""></form>
+<!--                        <form class="body__form" action=""></form>-->
                     </div>
                 </div>
             </div>
@@ -80,12 +80,29 @@
                     <ul class="card-list"></ul>
                     <div class="body__buttons">
                         <div class="body__button-title">+ Add another card</div>
-                        <form class="body__form" action=""></form>
+<!--                        <form class="body__form" action=""></form>-->
                     </div>
                 </div>
             </div>
         </div>
+        <div class="collum-container">
+            <div class="body__button-title add-column">+ Add another column</div>
+        </div>
     </div>
+
+    <form class="body__form template__form" action="" style="display: none">
+        <textarea placeholder="Enter a title for this card..." name=""></textarea>
+        <div class="form-footer">
+            <div class="addOrClose">
+                <div class="form-footer__add">Add card</div>
+                <div class="form-footer__close" onclick="this.parentElement.parentElement.parentElement.remove()">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="form-footer__button">...</div>
+        </div>
+    </form>
     <script src="script.js"></script>
 </body>
 </html>
