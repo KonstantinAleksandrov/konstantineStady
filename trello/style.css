@@ -74,7 +74,9 @@
   }
   /*------------------------------------*/
  .wrapper{
-     max-width: 850px;
+     width: fit-content;
+     min-width: 850px;
+     min-height: 400px;
      margin: 50px auto;
      display: flex;
      background-color: rgb(16, 122, 187);
@@ -82,8 +84,12 @@
      padding: 10px;
      font-size: 14px;
  }
+ .contant{
+   display: flex;
+   margin-right: 10px;
+ }
  .collum-container{
-     flex: 0 1 33.333%;
+     min-width:250px ;
      margin-right: 10px;
  }
  .collum-container:last-child{
@@ -93,7 +99,7 @@
  .collum{
     background-color: rgb(222, 226, 229);
     border-radius: 5px;
-    padding-top: 10px;
+    padding-top: 5px;
  }
  .collum-header{
      display: flex;
@@ -101,7 +107,7 @@
      align-items: center;
      margin-left: 10px;
      margin-right: 10px;
-     margin-bottom: 20px;
+     margin-bottom: 10px;
  }
  .header-title{
      text-transform: uppercase;
@@ -190,6 +196,9 @@
 
 .body__form{
   padding: 10px;
+  background-color:rgb(222, 226, 229) ;
+  border-radius: 5px;
+  display: none;
   
 }
 textarea{
@@ -197,7 +206,7 @@ textarea{
   resize: none;
   padding: 10px;
   border-radius: 5px;
-  min-height: 70px;
+  
   margin-bottom: 10px;
   color: rgb(30, 60, 77);
 }
@@ -211,7 +220,7 @@ textarea{
   align-items: center;
 }
 .form-footer__add{
-  flex: 0 0 90px;
+  flex: 0 0 100px;
   background-color: rgb(92, 168, 77);
   color: white;
   font-weight: 600;
@@ -221,16 +230,16 @@ textarea{
   margin-right: 5px;
   cursor: pointer;
 }
-.form-footer__close{
+.close-cross{
   flex: 0 0 30px;
   height: 30px;
   position: relative;
   cursor: pointer;
 }
-.form-footer__close:hover span{
+.close-cross:hover span{
   background-color: rgb(30, 60, 77);
 }
-.form-footer__close span{
+.close-cross span{
     transition: all 0.3s ease 0s;
     width: 16px;
     height: 2px;
@@ -240,7 +249,7 @@ textarea{
     top: 13px;
     transform: rotate(-45deg);
 }
-.form-footer__close span:last-child{
+.close-cross span:last-child{
   transform: rotate(45deg);
 }
 .form-footer__button{
