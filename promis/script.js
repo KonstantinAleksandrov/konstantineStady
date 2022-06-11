@@ -1,51 +1,38 @@
 'use strict'
-/* const delay = (ms) =>{
-    return new Promise((resolve,reject)=>{
-        setTimeout(()=> reject(new Error('ошибочка')),ms)
-    })
-}
-delay(3000).then(()=>console.log('выполнилось через 3 секунды'),()=>console.log('выполнилось с ошибкой')) */
 
-/* const startButton = document.querySelector('.button')
-startButton.addEventListener('click',()=>{
-    showCricle(150,150,100).then((div)=>{
-        div.classList.add('message-ball')
-        div.append("Привет, мир!")
-    })
+const btn = document.querySelector('.button')
+const ul = document.querySelector('ul')
+
+const getData = new Promise((resolve, reject) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Accept", "application/json");
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", "Bearer d8b42b3d8e8a21d707fe553923b48b3d3514de59e0511ad75379697695cea800");
+
+  const requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  fetch("https://gorest.co.in/public/v2/users", requestOptions)
+    .then(response => response.json())
+    .then(result => resolve(result))
+    .catch(error => console.log('error', error));
 })
 
-const showCricle = (x,y,radius) =>{
-    const div = document.createElement('div')
-    div.style.width = 0
-    div.style.height = 0
-    div.style.left = x + 'px'
-    div.style.top = y + 'px'
-    div.classList.add('circle')
-    document.body.append(div)
+
+const renderUsers = (userList) => {
+  userList.forEach(user => {
+    const li = document.createElement('li')
+    li.textContent = user.email + ' ' + user.name
+    ul.append(li)
+  })
+}
 
 
-    return new Promise((resolve,reject)=>{
-        setTimeout(() => {
-            div.style.width = radius * 2 + 'px'
-            div.style.height = radius * 2 + 'px'
-
-            div.addEventListener('transitionend',function handler(){
-                div.removeEventListener('transitionend',handler)
-                resolve(div)
-            })
-        })
-    })
-} */
-
-console.log('world')
-console.log('world')
-console.log('world')
-console.log('world')
-console.log('world')
-console.log('world')
-setTimeout(()=>{
-    console.log('hi')
-},2000)
-setTimeout(()=>{
-    console.log('hi2')
-},2000)
+btn.addEventListener('click', async () => {
+  const result = await getData
+  renderUsers(result)
+  // getData.then(result => renderUsers(result)).catch(err => console.log(err))
+})
