@@ -1,5 +1,6 @@
 'use strict'
 const collums = new Map()
+let arrStorge = []
 
 const activadeColumButtons = () => {
   const contant = document.querySelector('.contant')
@@ -13,6 +14,7 @@ const activadeColumButtons = () => {
       closeCollumCross.addEventListener('click', () => {
         collums.delete(title)
         item.remove()
+        changeStorge()
       })
 
       const openFormButton = item.querySelector('.body__button-title')
@@ -38,7 +40,6 @@ const activadeColumButtons = () => {
           const card = {}
           card.text = form.querySelector('textarea').value
           collums.get(title).cardList.push(card)
-          console.log(collums)
           form.querySelector('textarea').value = ''
           openFormButton.style.display = 'block'
           form.style.display = 'none'
@@ -46,11 +47,17 @@ const activadeColumButtons = () => {
         }
       })
 
-      const columnElement = item.querySelector('.collum')
-      columnElement.addEventListener('dragover', (e) => e.preventDefault())
-      columnElement.addEventListener('drop', (e) => {
-        // TODO изменить order колонки
+
+       const columnElement = item.querySelector('.collum')
+      columnElement.addEventListener('dragover', (event) => {
+        event.preventDefault() 
+
       })
+      columnElement.addEventListener('drop', (event) => {
+        // TODO изменить order колонки
+      }) 
+
+
     })
   }
 }
@@ -81,7 +88,7 @@ const createNewCollum = () => {
       form.style.display = 'none'
     } else {
       collums.set(title, {cardList: [], order: collums.size})
-      renderCollums(title)
+      renderCollums()
       form.querySelector('textarea').value = ''
       addNewCollumButton.style.display = 'block'
       form.style.display = 'none'
@@ -196,7 +203,6 @@ const addNewCollum = (title) => {
   activadeColumButtons()
 }
 
-createNewCollum()
 
 const renderCollums = () => {
   const contant = document.querySelector('.contant')
@@ -211,11 +217,12 @@ const renderCollums = () => {
 const renderCard = (name, place) => {
   place.innerHTML = ''
   collums.get(name).cardList.forEach(item => {
-    createCard(item, place)
+    createCard(item,place,name)
   })
+  changeStorge()
 }
 
-const createCard = (itemObj, place) => {
+const createCard = (itemObj, place,name) => {
   const li = document.createElement('li')
   li.classList.add('card-item')
   if (itemObj.image) {
@@ -233,6 +240,10 @@ const createCard = (itemObj, place) => {
 
   const cross = document.createElement('div')
   cross.classList.add('cross')
+  cross.addEventListener('click',()=>{
+    deleteCard(name,itemObj)
+    renderCard(name,place)
+  })
 
   const spanFirst = document.createElement('span')
   const spanSecond = document.createElement('span')
@@ -244,6 +255,29 @@ const createCard = (itemObj, place) => {
   place.append(li)
 }
 
+const deleteCard = (name,card) =>{
+ const cardNumber = collums.get(name).cardList.indexOf(card)
+ collums.get(name).cardList.splice(cardNumber,1)
+}
 
 
+const changeStorge = () =>{
+  arrStorge = []
+  collums.forEach((i,key)=>{
+    arrStorge.push([i,key])
+  })
+  
+  window.localStorage.setItem('collums',JSON.stringify(arrStorge)) 
+}
 
+const startPage = () =>{
+  let storage = JSON.parse(window.localStorage.getItem('collums'))
+  if(storage){
+    storage.forEach((item)=>{
+      collums.set(item[1],item[0])
+    })
+  }
+  renderCollums()
+  createNewCollum()
+}
+startPage()
