@@ -2,6 +2,7 @@
 let collums = new Map()
 let arrStorge = []
 let dragItem = null
+let dragCard = null
 
 const activadeColumButtons = () => {
   const contant = document.querySelector('.contant')
@@ -47,27 +48,6 @@ const activadeColumButtons = () => {
           renderCard(title, item.querySelector('.card-list'))
         }
       })
-
-
-       const columnElement = item.querySelector('.collum')
-      columnElement.addEventListener('dragover', (event) => {
-        event.preventDefault()
-      })
-      columnElement.addEventListener('dragstart', (event) => {
-        dragItem = event.target.dataset.title
-      })
-
-      columnElement.addEventListener('drop', (event) => {
-        // TODO изменить order колонки
-
-        collums = new Map(moveItem([...collums.entries()], dragItem, event.target.textContent))
-
-        renderCollums()
-        createNewCollum()
-        changeStorge()
-      })
-
-
     })
   }
 }
@@ -107,28 +87,38 @@ const createNewCollum = () => {
 }
 
 const addNewCollum = (title) => {
+  let activeCollum = null
   const contant = document.querySelector('.contant')
-  const oldCollum = contant.querySelector('.collum-container')
-  if (oldCollum) {
-    const newCollum = oldCollum.cloneNode(true)
-
-    const cardList = newCollum.querySelector('.card-list')
-    cardList.innerHTML = ''
-    renderCard(title, cardList)
-
-    const collumTitle = newCollum.querySelector('.header-title')
-    collumTitle.textContent = title
-
-    contant.append(newCollum)
-  } else {
     const newCollum = document.createElement('div')
     newCollum.classList.add('collum-container')
 
 
     const collum = document.createElement('div')
     collum.classList.add('collum')
-    collum.setAttribute('draggable', "true")
+    collum.setAttribute('draggable', "true") 
     collum.dataset.title = title
+
+      collum.addEventListener('dragstart', (event) => {
+          dragItem = event.target.dataset.title
+          activeCollum = collum
+    })
+
+      collum.addEventListener('dragover', (event) => {
+      event.preventDefault()
+    })
+
+      collum.addEventListener('drop',()=> {
+        if(dragItem){
+          let temp = collums.get(dragItem).order
+          let changeItem = collum.dataset.title
+          collums.get(dragItem).order = collums.get(changeItem).order
+          collums.get(changeItem).order = temp
+          renderCollums()
+        }
+      })
+
+
+
 
     const collumHeader = document.createElement('div')
     collumHeader.classList.add('collum-header')
@@ -147,11 +137,7 @@ const addNewCollum = (title) => {
     const collumBody = document.createElement('div')
     collumBody.classList.add('collum-body')
     collumBody.addEventListener('mousedown', () => collum.removeAttribute('draggable'))
-    document.body.addEventListener('mouseup', () => collum.setAttribute('draggable', "true"))
-    // collumBody.addEventListener('dragover', e => e.preventDefault())
-    // collumBody.addEventListener('drop', e => {
-    //   console.log(e)
-    // })
+    document.body.addEventListener('mouseup', () => collum.setAttribute('draggable', "true")) 
 
 
     const cardList = document.createElement('ul')
@@ -215,7 +201,6 @@ const addNewCollum = (title) => {
     newCollum.append(collum)
 
     contant.append(newCollum)
-  }
   activadeColumButtons()
 }
 
@@ -224,22 +209,35 @@ const renderCollums = () => {
   const contant = document.querySelector('.contant')
   contant.innerHTML = ''
   const arr = []
-  // collums.forEach((item, key) => addNewCollum(key))
   collums.forEach((item, key) => arr.push([key, item]))
   arr.sort((a, b) => a[1].order - b[1].order)
   arr.forEach((item) => addNewCollum(item[0]))
 }
 
-const renderCard = (name, place) => {
-  place.innerHTML = ''
-  collums.get(name).cardList.forEach(item => {
-    createCard(item,place,name)
+const renderCard = (columnName, ul) => {
+  ul.innerHTML = ''
+  collums.get(columnName).cardList.forEach(item => {
+    createCard(item,ul,columnName)
   })
   changeStorge()
 }
 
-const createCard = (itemObj, place,name) => {
+const createCard = (itemObj, ul,columnName) => {
   const li = document.createElement('li')
+  li.setAttribute('draggable','true')
+  li.addEventListener('dragstart',()=>{
+    dragCard = itemObj
+    console.log(collums.get(columnName).cardList)
+  })
+
+  li.addEventListener('dragover', (event) => {
+    event.preventDefault()
+  })
+
+  li.addEventListener('drop',()=>{
+    console.log(collums.get(columnName).cardList.findIndex((item)=>item.text == itemObj.text))
+  })
+
   li.classList.add('card-item')
   if (itemObj.image) {
     const itemImg = document.createElement('div')
@@ -257,8 +255,8 @@ const createCard = (itemObj, place,name) => {
   const cross = document.createElement('div')
   cross.classList.add('cross')
   cross.addEventListener('click',()=>{
-    deleteCard(name,itemObj)
-    renderCard(name,place)
+    deleteCard(columnName,itemObj)
+    renderCard(columnName,ul)
   })
 
   const spanFirst = document.createElement('span')
@@ -268,65 +266,13 @@ const createCard = (itemObj, place,name) => {
   cross.append(spanSecond)
   li.append(text)
   li.append(cross)
-  place.append(li)
+  ul.append(li)
 }
 
 const deleteCard = (name,card) =>{
  const cardNumber = collums.get(name).cardList.indexOf(card)
  collums.get(name).cardList.splice(cardNumber,1)
 }
-
-
-const moveItem = (list, item, target) => {
-  const newArr = []
-  let itemElement = null
-  list.filter(f => {
-    if(f[0] === item){
-      itemElement = f
-      return false
-    }
-    return true
-  }).map(i => {
-    newArr.push(i)
-    if(i[0] === target) {
-      newArr.push(itemElement)
-    }
-  })
-  return newArr
-}
-
-/*
-const arr = [1,2,3,4,5]
-
-const handleMovePos = (list, item, target) => {
-    const newArr = []
-    let itemKey = null
-    list.filter((f, key) => {
-        if(f === item){
-            itemKey = key
-            return false
-        }
-        return true
-    }).map((i, key) => {
-
-        if(i === target) {
-            if(itemKey > key ){
-                newArr.push(item)
-                newArr.push(i)
-            } else {
-                newArr.push(i)
-                newArr.push(item)
-            }
-        } else {
-            newArr.push(i)
-        }
-    })
-    return newArr
-}
-
-handleMovePos(arr, 2, 4)
-
-*/
 
 const changeStorge = () =>{
   arrStorge = []
@@ -337,7 +283,7 @@ const changeStorge = () =>{
   window.localStorage.setItem('collums', JSON.stringify(arrStorge))
 }
 
-(function startPage(){
+/* (function startPage(){
   let storage = JSON.parse(window.localStorage.getItem('collums'))
   if(storage){
     storage.forEach((item)=>{
@@ -346,4 +292,16 @@ const changeStorge = () =>{
   }
   renderCollums()
   createNewCollum()
-})()
+})() */
+
+const promis = new Promise((resolve,reject)=>{
+  let storage = JSON.parse(window.localStorage.getItem('collums'))
+  resolve(storage)
+})
+promis.then((boards)=>{
+  boards.forEach((item)=>{
+    collums.set(item[1],item[0])
+  })
+  renderCollums()
+  createNewCollum()
+})
