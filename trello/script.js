@@ -299,9 +299,11 @@ const promis = new Promise((resolve,reject)=>{
   resolve(storage)
 })
 promis.then((boards)=>{
-  boards.forEach((item)=>{
-    collums.set(item[1],item[0])
-  })
+  if(boards){
+    boards.forEach((item)=>{
+      collums.set(item[1],item[0])
+    })
+  }
   renderCollums()
   createNewCollum()
 })
