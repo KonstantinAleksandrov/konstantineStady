@@ -3,6 +3,10 @@ let collums = new Map()
 let arrStorge = []
 let dragItem = null
 let dragCard = null
+let activeIndex = null
+let columnDrop = null
+let a = null
+let list = null
 
 const activadeColumButtons = () => {
   const contant = document.querySelector('.contant')
@@ -16,6 +20,7 @@ const activadeColumButtons = () => {
       closeCollumCross.addEventListener('click', () => {
         collums.delete(title)
         item.remove()
+        renderCollums()
         changeStorge()
       })
 
@@ -87,7 +92,6 @@ const createNewCollum = () => {
 }
 
 const addNewCollum = (title) => {
-  let activeCollum = null
   const contant = document.querySelector('.contant')
     const newCollum = document.createElement('div')
     newCollum.classList.add('collum-container')
@@ -100,7 +104,6 @@ const addNewCollum = (title) => {
 
       collum.addEventListener('dragstart', (event) => {
           dragItem = event.target.dataset.title
-          activeCollum = collum
     })
 
       collum.addEventListener('dragover', (event) => {
@@ -138,6 +141,14 @@ const addNewCollum = (title) => {
     collumBody.classList.add('collum-body')
     collumBody.addEventListener('mousedown', () => collum.removeAttribute('draggable'))
     document.body.addEventListener('mouseup', () => collum.setAttribute('draggable', "true")) 
+    collumBody.addEventListener('drop',()=>{
+      if(!collums.get(title).cardList.length){
+        collums.get(title).cardList.push(dragCard)
+        collums.get(a).cardList.splice(activeIndex,1)
+        renderCard(title, cardList)
+        renderCard(a, list)
+      }
+    })
 
 
     const cardList = document.createElement('ul')
@@ -225,18 +236,6 @@ const renderCard = (columnName, ul) => {
 const createCard = (itemObj, ul,columnName) => {
   const li = document.createElement('li')
   li.setAttribute('draggable','true')
-  li.addEventListener('dragstart',()=>{
-    dragCard = itemObj
-    console.log(collums.get(columnName).cardList)
-  })
-
-  li.addEventListener('dragover', (event) => {
-    event.preventDefault()
-  })
-
-  li.addEventListener('drop',()=>{
-    console.log(collums.get(columnName).cardList.findIndex((item)=>item.text == itemObj.text))
-  })
 
   li.classList.add('card-item')
   if (itemObj.image) {
@@ -267,6 +266,27 @@ const createCard = (itemObj, ul,columnName) => {
   li.append(text)
   li.append(cross)
   ul.append(li)
+
+  li.addEventListener('dragstart',()=>{
+    dragCard = itemObj
+    columnDrop = collums.get(columnName).cardList
+    a = columnName
+    list = ul
+    activeIndex = columnDrop.findIndex((item)=>item.text == dragCard.text)
+  })
+
+  li.addEventListener('dragover', (event) => {
+    event.preventDefault()
+  })
+
+  li.addEventListener('drop',()=>{
+    let dropIndex = collums.get(columnName).cardList.findIndex((item)=>item.text == itemObj.text)
+    let temp = columnDrop[activeIndex]
+    columnDrop.splice(activeIndex,1)
+    collums.get(columnName).cardList.splice(dropIndex + 1,0,temp)
+    renderCard(a,list)
+    renderCard(columnName,ul)
+  })
 }
 
 const deleteCard = (name,card) =>{
