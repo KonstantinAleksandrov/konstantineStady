@@ -64,12 +64,12 @@ function getTag(title) {
 
 function getTagItemsAsync(tagId, cb) {
   setTimeout(() => {
-    const tagItems = new Map(JSON.parse([
-    [17,[{"title":"Телепорт бытовой VZHIH-101","price":10000,"discount":7,"available":3},
-    {"title":"Ховерборд Mattel 2016","price":9200,"discount":4,"available":14}]],
-    [32,[{"title":"Ховерборд Mattel 2016","price":9200,"discount":4,"available":14},
-    {"title":"Меч световой FORCE (синий луч)","price":57000,"discount":0,"available":1}]]
-    ]));
+    const tagItems = new Map(JSON.parse(`[
+        [17,[{"title":"Телепорт бытовой VZHIH-101","price":10000,"discount":7,"available":3},
+        {"title":"Ховерборд Mattel 2016","price":9200,"discount":4,"available":14}]],
+      [32,[{"title":"Ховерборд Mattel 2016","price":9200,"discount":4,"available":14},
+        {"title":"Меч световой FORCE (синий луч)","price":57000,"discount":0,"available":1}]]
+  ]`));
     if (tagItems.has(tagId)) {
       cb(null, tagItems.get(tagId));
     } else {
@@ -111,7 +111,15 @@ const tags = [
 const badTag = { id: 54, title: 'ошибка' };
 const tagTitle = 'гаджеты';
 
-const showTagInfo = (tag) =>{
-
+const showTagInfo = (tag) => {
+  getTagItemsAsync(tag.id, (error, data) => {
+    if(error) {
+      console.log(error)
+    } else {
+      console.log(data)
+    }
+  })
 }
 
+tags.forEach(showTagInfo);
+showTagInfo(444)

@@ -303,21 +303,25 @@ const changeStorge = () =>{
   window.localStorage.setItem('collums', JSON.stringify(arrStorge))
 }
 
-/* (function startPage(){
-  let storage = JSON.parse(window.localStorage.getItem('collums'))
-  if(storage){
-    storage.forEach((item)=>{
-      collums.set(item[1],item[0])
-    })
-  }
-  renderCollums()
-  createNewCollum()
-})() */
+// (function startPage(){
+//   let storage = JSON.parse(window.localStorage.getItem('collums'))
+//
+//   if(storage){
+//     storage.forEach((item)=>{
+//       collums.set(item[1],item[0])
+//     })
+//   }
+//   renderCollums()
+//   createNewCollum()
+// })()
 
 const promis = new Promise((resolve,reject)=>{
-  let storage = JSON.parse(window.localStorage.getItem('collums'))
-  resolve(storage)
+  setTimeout(() => {
+    let storage = JSON.parse(window.localStorage.getItem('collums'))
+    resolve(storage)
+  }, 10 )// симуляция запроса
 })
+
 promis.then((boards)=>{
   if(boards){
     boards.forEach((item)=>{
@@ -326,4 +330,6 @@ promis.then((boards)=>{
   }
   renderCollums()
   createNewCollum()
-})
+}).catch(err => console.log(err))
+
+
