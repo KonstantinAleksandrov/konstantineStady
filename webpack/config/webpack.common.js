@@ -1,18 +1,18 @@
-const path = require('path') // commonJS import
+const paths = require('./paths.js') // commonJS import
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = { // commonJS export
   entry: {
-    main: path.resolve(__dirname, './src/index.js')
+    main: paths.entry
   },
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: paths.dist,
     filename: '[name].bundle.js'
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'webpack template',
-      template: path.resolve(__dirname, './src/template.html'),
+      template: paths.html,
       filename: 'index.html'
     })
   ],
@@ -30,6 +30,14 @@ module.exports = { // commonJS export
       {
         test: /\.svg$/,
         type: 'asset/inline'
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   }
