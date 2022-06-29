@@ -65,6 +65,8 @@ function getTag(title) {
 function getTagItemsAsync(tagId, cb) {
   setTimeout(() => {
     const tagItems = new Map(JSON.parse('[[17,[{"title":"Телепорт бытовой VZHIH-101","price":10000,"discount":7,"available":3},{"title":"Ховерборд Mattel 2016","price":9200,"discount":4,"available":14}]],[32,[{"title":"Ховерборд Mattel 2016","price":9200,"discount":4,"available":14},{"title":"Меч световой FORCE (синий луч)","price":57000,"discount":0,"available":1}]]]'));
+
+   
     if (tagItems.has(tagId)) {
       cb(null, tagItems.get(tagId));
     } else {
@@ -99,4 +101,68 @@ const tags = [
   { id: 32, title: 'гаджеты' }
 ];
 const badTag = { id: 54, title: 'ошибка' };
-const tagTitle = 'гаджеты';
+const tagTitle = 'перемещение';
+
+
+
+/* const showTagInfo = (tag) => {
+  getTagItemsAsync(tag.id, (error, data) => {
+    if(error) {
+      console.log(error)
+    } else {
+      console.log(data)
+    }
+  })
+}
+
+tags.forEach(showTagInfo);
+showTagInfo(444) */
+
+const getCurrencyRate = (code) =>{
+ return new Promise((resolve,reject)=>{
+  getCurrencyRateAsync(code,(error,data)=>{
+    if(error){
+       reject(error)
+    }else{
+      resolve(data)
+    }
+  })
+ })
+}
+/* getCurrencyRate('USD').then((info)=>console.log(info)) */
+
+const amount = 42
+ const convertCurrency = (fromCode,toCode) =>{
+  return Promise.all([
+    getCurrencyRate(fromCode),
+    getCurrencyRate(toCode)
+  ])
+ }
+ //?????????????????? что за конвертация
+
+
+ const getTagItemsCountAsync = (title,callBack) =>{
+  getTagAsync(title,(a,b)=>{
+    getTagItemsAsync(b.id,(err,data)=>{
+        callBack(null,data.length)
+    })
+  })
+ } 
+ 
+ /* getTagItemsCountAsync(tagTitle,(q,count)=>{
+  if(q){
+    console.log(q)
+  }else{
+    console.log(`По тегу #${tagTitle} найдено товаров ${count} шт.`)
+  }
+ }) */
+ 
+
+ const getTagItemsCount = (title) =>{
+  return new Promise((resolve,reject)=>{
+    getTag(title).then((tag)=>getTagItems(tag.id).then((info)=>resolve(info.length)))
+  })
+ }
+ getTagItemsCount(tagTitle)
+ .then((count) => console.log(`По тегу #${tagTitle} найдено товаров ${count} шт.`))
+ .catch((error) => console.log(error))
