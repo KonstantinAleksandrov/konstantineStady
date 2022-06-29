@@ -8,7 +8,7 @@ const createNewProduct = (list,arr) =>{
     arr.forEach((item)=>{
         const li = document.createElement('li')
         const input = document.createElement('input')
-        input.type = 'text'
+        input.type = 'tel'
         input.name = Object.keys(item)
         input.value = item[Object.keys(item)]
         input.addEventListener('blur',()=>{
@@ -66,7 +66,9 @@ const changesCouterisPage = () =>{
             if(item[Object.keys(item)]){
                 cardArr.push(item)
                 createNewProduct(readyList,cardArr)
-                counter += +item[Object.keys(item)]
+                if(+item[Object.keys(item)]){
+                    counter += +item[Object.keys(item)]
+                }
                 changesCouterisPage()
             }
         })
