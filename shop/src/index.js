@@ -1,91 +1,86 @@
 import './style/style.scss'
+import './style/reset.scss'
+import {drawProductCatalog, addNewProductInArr} from './modules/catalog'
 
-let buyProductsArr = []
-let cardArr = []
-let counter = 0
-const createNewProduct = (list,arr) =>{
-    list.innerHTML = ''
-    arr.forEach((item)=>{
-        const li = document.createElement('li')
-        const input = document.createElement('input')
-        input.type = 'tel'
-        input.name = Object.keys(item)
-        input.value = item[Object.keys(item)]
-        input.addEventListener('blur',()=>{
-             item[Object.keys(item)] = input.value 
-        })
+let buyProductsArr = window.localStorage.getItem('buyProductsArr') || []
+let cardArr = window.localStorage.getItem('cardArr') || []
+let counter = window.localStorage.getItem('counter') || 0;
 
-        const span = document.createElement('span')
-        span.textContent = Object.keys(item)
-        li.append(input)
-        li.append(span)
-        list.append(li)
+// const addNewProductInArr = (nameProduct) => {
+//   const newProduct = {
+//     [nameProduct]: '',
+//   }
+//   buyProductsArr.push(newProduct)
+// }
+
+(function () { // TODO change
+  const buyList = document.querySelector('.listProduct')
+  let listItems = [...buyList.querySelectorAll('li')]
+  listItems.forEach((item) => {
+    const name = item.querySelector('span').textContent
+    addNewProductInArr(name, (newItem) => {
+      buyProductsArr = [...buyProductsArr, newItem]
+      console.log(buyProductsArr)
+      drawProductCatalog(buyList, buyProductsArr)
     })
+    //[name] : item.querySelector('input').value значение обьекта для localStorage
+  })
+
+})()
+
+
+const renderCountItems = () => {
+  const counterCardItems = document.querySelector('.counterCardItems')
+  counterCardItems.textContent = counter
 }
 
-const addNewProductInArr = (nameProduct) =>{
-    const newProduct = {
-        [nameProduct] : ''
+const btnAddNewProduct = document.querySelector('.addNewProduct')
+
+btnAddNewProduct.addEventListener('click', () => {
+  const buyList = document.querySelector('.listProduct')
+  const inputAdd = document.querySelector('.inputAdd')
+  if (inputAdd.value) {
+    addNewProductInArr(inputAdd.value, (newItem) => {
+
+      buyProductsArr = [...buyProductsArr, newItem]
+      console.log(buyProductsArr)
+      drawProductCatalog(buyList, buyProductsArr)
+      inputAdd.value = ''
+    })
+
+  }
+})
+
+const btnAddToCard = document.querySelector('.addCard')
+
+btnAddToCard.addEventListener('click', () => {
+  const readyList = document.querySelector('.readyList')
+  cardArr = []
+  counter = 0
+  buyProductsArr.forEach((item) => { // TODO change
+    if (item[Object.keys(item)]) {
+      cardArr.push(item)
+      drawProductCatalog(readyList, cardArr)
+      if (+item[Object.keys(item)]) {
+        counter += +item[Object.keys(item)]
+      }
+      renderCountItems()
     }
-    buyProductsArr.push(newProduct)
-}
+  })
+})
 
-(function(){
-    const buyList = document.querySelector('.listProduct')
-    let listItems = [...buyList.querySelectorAll('li')]
-    listItems.forEach((item)=>{
-        const name = item.querySelector('span').textContent
-        addNewProductInArr(name)
-        //[name] : item.querySelector('input').value значение обьекта для localStorage
-    })
-    createNewProduct(buyList,buyProductsArr)
-}())
-const changesCouterisPage = () =>{
-    const counterCardItems = document.querySelector('.counterCardItems')
-    counterCardItems.textContent = counter
-}
+const btnClearCard = document.querySelector('.card-header__clearCard')
+btnClearCard.addEventListener('click', () => {
+  const readyList = document.querySelector('.readyList')
+  cardArr = []
+  counter = 0
+  drawProductCatalog(readyList, cardArr)
+  renderCountItems()
+})
 
-    const btnAddNewProduct = document.querySelector('.addNewProduct')
-    btnAddNewProduct.addEventListener('click',()=>{
-        const buyList = document.querySelector('.listProduct')
-        const inputAdd = document.querySelector('.inputAdd')
-        if(inputAdd.value){
-            addNewProductInArr(inputAdd.value)
-            inputAdd.value = ''
-        }
-        createNewProduct(buyList,buyProductsArr)
-    })
-    
-    const btnAddToCard = document.querySelector('.addCard')
-
-    btnAddToCard.addEventListener('click',()=>{
-        const readyList = document.querySelector('.readyList')
-        cardArr = []
-        counter = 0
-        buyProductsArr.forEach((item)=>{
-            if(item[Object.keys(item)]){
-                cardArr.push(item)
-                createNewProduct(readyList,cardArr)
-                if(+item[Object.keys(item)]){
-                    counter += +item[Object.keys(item)]
-                }
-                changesCouterisPage()
-            }
-        })
-    })
-
-    const btnClearCard = document.querySelector('.card-header__clearCard')
-    btnClearCard.addEventListener('click',()=>{
-        const readyList = document.querySelector('.readyList')
-        cardArr = []
-        counter = 0
-        createNewProduct(readyList,cardArr)
-        changesCouterisPage()
-    })
-
-    const btnOpenCard = document.querySelector('.openCard')
-    btnOpenCard.addEventListener('click',()=>{
-        const card = document.querySelector('.card')
-        card.classList.toggle('_activeCard')
-    })
+const btnOpenCard = document.querySelector('.openCard')
+btnOpenCard.addEventListener('click', () => {
+  const card = document.querySelector('.card')
+  card.classList.toggle('_activeCard')
+})
 

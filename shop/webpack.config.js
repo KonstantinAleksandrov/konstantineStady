@@ -1,17 +1,24 @@
 const path = require('path')
-const HtmlWebpackPlaguin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
 module.exports = {
     mode : 'development',
     entry : './src/index.js',
-
+    devServer: {
+        historyApiFallback: true,
+        static: path.resolve(__dirname, './dist'),
+        open: true,
+        compress: true,
+        hot: true,
+        port: 3000,
+    },
     output : {
         path : path.resolve(__dirname, 'dist'),
         filename : 'bundle.js'
     },
     plugins : [
-        new HtmlWebpackPlaguin({
+        new HtmlWebpackPlugin({
             template : './src/index.html'
         }),
         new CleanWebpackPlugin()

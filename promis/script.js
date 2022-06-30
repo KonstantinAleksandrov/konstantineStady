@@ -129,15 +129,19 @@ const getCurrencyRate = (code) =>{
   })
  })
 }
-/* getCurrencyRate('USD').then((info)=>console.log(info)) */
+// getCurrencyRate('USD').then((info)=>console.log(info))
 
 const amount = 42
- const convertCurrency = (fromCode,toCode) =>{
+const baseCur = 'ZZZ'
+ const convertCurrency = (fromCode, toCode) => {
+  //...
   return Promise.all([
     getCurrencyRate(fromCode),
     getCurrencyRate(toCode)
   ])
  }
+
+convertCurrency(baseCur, "USD").then(result => console.log(`${amount}${baseCur} = $${result}`)).catch(console.error)
  //?????????????????? что за конвертация
 
 
@@ -163,6 +167,7 @@ const amount = 42
     getTag(title).then((tag)=>getTagItems(tag.id).then((info)=>resolve(info.length)))
   })
  }
+
  getTagItemsCount(tagTitle)
  .then((count) => console.log(`По тегу #${tagTitle} найдено товаров ${count} шт.`))
  .catch((error) => console.log(error))
