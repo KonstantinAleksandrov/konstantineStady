@@ -2,7 +2,24 @@ import './style/style.scss'
 import './style/reset.scss'
 import {drawProductCatalog, addNewProductInArr} from './modules/catalog'
 
-let buyProductsArr = window.localStorage.getItem('buyProductsArr') || []
+let buyProductsArr = window.localStorage.getItem('buyProductsArr') || [
+    {
+        Milk: 0 
+    },
+    {
+        Bread: 0 
+    },
+    {
+        Ham: 0 
+    },
+    {
+        Beans: 0 
+    },
+    {
+        Chicken: 0 
+    },
+
+]
 let cardArr = window.localStorage.getItem('cardArr') || []
 let counter = window.localStorage.getItem('counter') || 0;
 
