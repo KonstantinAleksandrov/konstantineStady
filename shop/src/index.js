@@ -54,3 +54,4 @@ btnClearCard.addEventListener('click', () => {
   counterItemsInCard(cardList)
 })
 
+console.log(2)
