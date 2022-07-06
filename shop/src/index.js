@@ -1,103 +1,56 @@
 import './style/style.scss'
 import './style/reset.scss'
-import {drawProductCatalog, addNewProductInArr} from './modules/catalog'
+import {renderList,counterItemsInCard} from './modules/catalog' 
 
-let buyProductsArr = window.localStorage.getItem('buyProductsArr') || [
-    {
-        Milk: 0 
-    },
-    {
-        Bread: 0 
-    },
-    {
-        Ham: 0 
-    },
-    {
-        Beans: 0 
-    },
-    {
-        Chicken: 0 
-    },
-
-]
-let cardArr = window.localStorage.getItem('cardArr') || []
-let counter = window.localStorage.getItem('counter') || 0;
-
-// const addNewProductInArr = (nameProduct) => {
-//   const newProduct = {
-//     [nameProduct]: '',
-//   }
-//   buyProductsArr.push(newProduct)
-// }
-
-(function () { // TODO change
-  const buyList = document.querySelector('.listProduct')
-  let listItems = [...buyList.querySelectorAll('li')]
-  listItems.forEach((item) => {
-    const name = item.querySelector('span').textContent
-    addNewProductInArr(name, (newItem) => {
-      buyProductsArr = [...buyProductsArr, newItem]
-      console.log(buyProductsArr)
-      drawProductCatalog(buyList, buyProductsArr)
-    })
-    //[name] : item.querySelector('input').value значение обьекта для localStorage
-  })
-
-})()
+let productList = new Map()
+let cardList = new Map()
+productList.set('Milk',{amount : ''})
+productList.set('Bread',{amount : ''})
+productList.set('Ham',{amount : ''})
+productList.set('Beans',{amount : ''})
+productList.set('Chicken',{amount : ''})
 
 
-const renderCountItems = () => {
-  const counterCardItems = document.querySelector('.counterCardItems')
-  counterCardItems.textContent = counter
+const drawProductCatalog = () =>{
+  const ulOfProduct  = document.querySelector('.listProduct')
+  renderList(ulOfProduct,productList)
 }
+drawProductCatalog()
+
 
 const btnAddNewProduct = document.querySelector('.addNewProduct')
-
 btnAddNewProduct.addEventListener('click', () => {
-  const buyList = document.querySelector('.listProduct')
   const inputAdd = document.querySelector('.inputAdd')
   if (inputAdd.value) {
-    addNewProductInArr(inputAdd.value, (newItem) => {
-
-      buyProductsArr = [...buyProductsArr, newItem]
-      console.log(buyProductsArr)
-      drawProductCatalog(buyList, buyProductsArr)
-      inputAdd.value = ''
-    })
-
+    productList.set(inputAdd.value,{amount : ''})
+    drawProductCatalog()
   }
+  inputAdd.value = ''
 })
 
 const btnAddToCard = document.querySelector('.addCard')
-
-btnAddToCard.addEventListener('click', () => {
+btnAddToCard.addEventListener('click',()=>{
   const readyList = document.querySelector('.readyList')
-  cardArr = []
-  counter = 0
-  buyProductsArr.forEach((item) => { // TODO change
-    if (item[Object.keys(item)]) {
-      cardArr.push(item)
-      drawProductCatalog(readyList, cardArr)
-      if (+item[Object.keys(item)]) {
-        counter += +item[Object.keys(item)]
-      }
-      renderCountItems()
+  productList.forEach((item,key)=>{
+    if(item.amount){
+      cardList.set(key,{amount :item.amount})
     }
   })
-})
-
-const btnClearCard = document.querySelector('.card-header__clearCard')
-btnClearCard.addEventListener('click', () => {
-  const readyList = document.querySelector('.readyList')
-  cardArr = []
-  counter = 0
-  drawProductCatalog(readyList, cardArr)
-  renderCountItems()
+  renderList(readyList,cardList)
+  counterItemsInCard(cardList)
 })
 
 const btnOpenCard = document.querySelector('.openCard')
 btnOpenCard.addEventListener('click', () => {
   const card = document.querySelector('.card')
   card.classList.toggle('_activeCard')
+})
+
+const btnClearCard = document.querySelector('.card-header__clearCard')
+btnClearCard.addEventListener('click', () => {
+  const readyList = document.querySelector('.readyList')
+  cardList.clear()
+  renderList(readyList,cardList)
+  counterItemsInCard(cardList)
 })
 

@@ -1,29 +1,28 @@
-export const drawProductCatalog = (list, arr) =>{
+
+export const renderList = (list,data) =>{
   list.innerHTML = ''
-  arr.forEach((item, key) => {
+  data.forEach((item,key)=>{
     const li = document.createElement('li')
     const input = document.createElement('input')
-    input.type = 'number'
-    input.name = Object.keys(item)
-    input.value = item[Object.keys(item)]
     input.addEventListener('blur',()=>{
-      item[Object.keys(item)] = input.value
+      item.amount = input.value
     })
-
+    input.type = 'number'
+    input.name = key
+    input.value = item.amount
     const span = document.createElement('span')
-    span.textContent = Object.keys(item)
+    span.textContent = key
     li.append(input)
     li.append(span)
     list.append(li)
   })
 }
 
-export const addNewProductInArr = (nameProduct, cb) => { // TODO change
-  const newProduct = {
-    [nameProduct] : '',
-  }
-
-  cb(newProduct)
+export const counterItemsInCard = (data) =>{
+  const counter = document.querySelector('.counterCardItems')
+  let temp = 0
+  data.forEach((item)=>{
+    temp += +item.amount
+  })
+  counter.textContent = temp
 }
-
-
