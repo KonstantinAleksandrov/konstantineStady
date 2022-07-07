@@ -1,8 +1,8 @@
 {
-    "catalog": {
-        "Milk": {
+    "catalog": {},
+    "card": [
+        {
             "name": "Milk"
         }
-    },
-    "card": {}
+    ]
 }
