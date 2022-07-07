@@ -2,21 +2,21 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
-
 module.exports = {
     mode : 'development',
     entry : {
        main : './src/index.js',
-       example : './src/scripts/example.js',
+       example : path.resolve(__dirname, './src/scripts/example.js'), //'./src/scripts/example.js',
        second : './src/scripts/second.js'
     },
-       devServer: {
+    devServer: {
         historyApiFallback: true,
         static: path.resolve(__dirname, './dist'),
         open: true,
         compress: true,
         hot: true,
         port: 3000,
+        magicHtml: true
     },   
     output : {
         path : path.resolve(__dirname, 'dist'),
@@ -28,7 +28,7 @@ module.exports = {
             chunks: ["main"]
         }),
         new HtmlWebpackPlugin({
-            template : './src/pages/example.html',
+            template : path.resolve(__dirname, './src/pages/example.html'),
             filename: 'example.html',
             chunks: ["example"]
         }),

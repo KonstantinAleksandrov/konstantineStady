@@ -1,8 +1,19 @@
 {
-    "catalog": {},
+    "catalog": {
+        "Milk": {
+            "name": "Milk"
+        },
+        "Water": {
+            "name": "Water",
+            "price": 30
+        }
+    },
     "card": [
         {
             "name": "Milk"
+        },
+        {
+            "name": "Water"
         }
     ]
 }

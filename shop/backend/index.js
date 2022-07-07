@@ -5,7 +5,7 @@ import cors from 'cors'
 
 const app = express()
 app.use(express.json())
-const port = 5000
+const port = 900
 const db = new JsonDB(new Config("shop", true, true, '/'));
 
 const corsOptions = {

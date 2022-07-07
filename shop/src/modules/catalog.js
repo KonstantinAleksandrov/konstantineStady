@@ -1,3 +1,4 @@
+import axios from 'axios'
 
 export const renderList = (list,data) =>{
   list.innerHTML = ''
@@ -25,4 +26,12 @@ export const counterItemsInCard = (data) =>{
     temp += +item.amount
   })
   counter.textContent = temp
+}
+
+
+export const getCatalogItems = (cb) => {
+  axios.get('http://127.0.0.1:900/catalog')
+    .then(({data}) => {
+      cb(data)
+    })
 }

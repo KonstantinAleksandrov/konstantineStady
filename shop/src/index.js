@@ -1,21 +1,29 @@
 import './style/style.scss'
 import './style/reset.scss'
-import {renderList,counterItemsInCard} from './modules/catalog' 
+import {renderList,counterItemsInCard, getCatalogItems} from './modules/catalog'
 
 let productList = new Map()
 let cardList = new Map()
-productList.set('Milk',{amount : ''})
-productList.set('Bread',{amount : ''})
-productList.set('Ham',{amount : ''})
-productList.set('Beans',{amount : ''})
-productList.set('Chicken',{amount : ''})
+
+getCatalogItems((data) => {
+  Object.entries(data).forEach(item => {
+    productList.set(item[0], {...item[1], amount : ''})
+  })
+  drawProductCatalog()
+})
+
+// productList.set('Milk',{amount : ''})
+// productList.set('Bread',{amount : ''})
+// productList.set('Ham',{amount : ''})
+// productList.set('Beans',{amount : ''})
+// productList.set('Chicken',{amount : ''})
 
 
 const drawProductCatalog = () =>{
   const ulOfProduct  = document.querySelector('.listProduct')
   renderList(ulOfProduct,productList)
 }
-drawProductCatalog()
+
 
 
 const btnAddNewProduct = document.querySelector('.addNewProduct')
