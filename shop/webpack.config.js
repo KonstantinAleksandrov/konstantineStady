@@ -1,13 +1,14 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
     mode : 'development',
     entry : {
        main : './src/index.js',
        admin : path.resolve(__dirname, './src/scripts/admin.js'), //'./src/scripts/example.js',
-       second : path.resolve(__dirname,'./src/pages/second.html')
+       card : path.resolve(__dirname,'./src/scripts/card.js')
     },
     devServer: {
         historyApiFallback: true,
@@ -33,11 +34,15 @@ module.exports = {
             chunks: ["admin"]
         }),
         new HtmlWebpackPlugin({
-            template : path.resolve(__dirname,'./src/pages/second.html'),
-            filename: 'second.html',
-            chunks: ["second"]
+            template : path.resolve(__dirname,'./src/pages/card.html'),
+            filename: 'card.html',
+            chunks: ["card"]
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development'),
+            'process.env.BACKEND_PORT': 901,
+        })
     ],
     module:{
         rules : [

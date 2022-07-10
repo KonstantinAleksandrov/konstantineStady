@@ -123,6 +123,7 @@ body {
   margin-bottom: 46px;
   margin-right: 60px;
   margin-left: 60px;
+  display: flex;
 }
 
 @media (max-width: 1200px) {

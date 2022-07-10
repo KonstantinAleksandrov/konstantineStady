@@ -63,6 +63,13 @@ li:last-child{
     &__title {
         font-size: 30px;
         color: white;
+        display: flex;
+        align-items: baseline;
+
+      > div {
+        padding-left: 20px;
+        font-size: 70%;
+      }
     }
 
     &__button {

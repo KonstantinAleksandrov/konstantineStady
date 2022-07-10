@@ -18,6 +18,9 @@
         },
         "Ham": {
             "name": "Ham"
+        },
+        "Beer": {
+            "name": "Beer"
         }
     },
     "card": [

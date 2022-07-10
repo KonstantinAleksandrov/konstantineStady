@@ -1,6 +1,8 @@
 
 import '../style/admin.scss'
 import {renderList,getCatalogItems} from '../modules/catalog'
+import {renderNavMenu} from '../modules/common'
+
 let productList = new Map()
   const drawProductCatalog = () =>{
     const ulOfProduct  = document.querySelector('.listProduct')
@@ -31,7 +33,7 @@ let productList = new Map()
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:900/catalog", requestOptions)
+        fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/catalog`, requestOptions)
         .then(()=>{
             getCatalogItems((catalog)=>{
                 Object.entries(catalog).forEach((item)=>{
@@ -46,3 +48,5 @@ let productList = new Map()
         return
     }
  })
+
+renderNavMenu()

@@ -1,16 +1,9 @@
 import './style/style.scss'
-import './style/reset.scss'
 import {renderList,counterItemsInCard, getCatalogItems} from './modules/catalog'
+import {renderNavMenu} from './modules/common'
 
 let productList = new Map()
 let cardList = new Map()
-
-/* getCatalogItems((data) => {
-  Object.entries(data).forEach(item => {
-    productList.set(item[0], {...item[1], amount : ''})
-  })
-  drawProductCatalog()
-}) */
 
 getCatalogItems((catalog)=>{
   Object.entries(catalog).forEach((item)=>{
@@ -18,12 +11,6 @@ getCatalogItems((catalog)=>{
   })
   drawProductCatalog(productList)
 })
-
-// productList.set('Milk',{amount : ''})
-// productList.set('Bread',{amount : ''})
-// productList.set('Ham',{amount : ''})
-// productList.set('Beans',{amount : ''})
-// productList.set('Chicken',{amount : ''})
 
 const drawProductCatalog = () =>{
   const ulOfProduct  = document.querySelector('.listProduct')
@@ -55,3 +42,5 @@ btnClearCard.addEventListener('click', () => {
   renderList(readyList,cardList,true)
   counterItemsInCard(cardList)
 })
+
+renderNavMenu()

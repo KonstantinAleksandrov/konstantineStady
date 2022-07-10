@@ -2,10 +2,11 @@ import { JsonDB } from 'node-json-db'
 import { Config } from 'node-json-db/dist/lib/JsonDBConfig'
 import express from 'express'
 import cors from 'cors'
+import 'dotenv'
 
 const app = express()
 app.use(express.json())
-const port = 900
+const port = 901
 const db = new JsonDB(new Config("shop", true, true, '/'));
 
 const corsOptions = {

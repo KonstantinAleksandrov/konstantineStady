@@ -39,7 +39,7 @@ export const counterItemsInCard = (data) =>{
 } */
 
 export const getCatalogItems = (callBack) =>{
-  fetch("http://127.0.0.1:900/catalog")
+  fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/catalog`)
   .then(response => response.text())
   .then(result=>{
     callBack(JSON.parse(result))
