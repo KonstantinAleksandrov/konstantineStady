@@ -6,8 +6,8 @@ module.exports = {
     mode : 'development',
     entry : {
        main : './src/index.js',
-       example : path.resolve(__dirname, './src/scripts/example.js'), //'./src/scripts/example.js',
-       second : './src/scripts/second.js'
+       admin : path.resolve(__dirname, './src/scripts/admin.js'), //'./src/scripts/example.js',
+       second : path.resolve(__dirname,'./src/pages/second.html')
     },
     devServer: {
         historyApiFallback: true,
@@ -28,12 +28,12 @@ module.exports = {
             chunks: ["main"]
         }),
         new HtmlWebpackPlugin({
-            template : path.resolve(__dirname, './src/pages/example.html'),
-            filename: 'example.html',
-            chunks: ["example"]
+            template : path.resolve(__dirname, './src/pages/admin.html'),
+            filename: 'admin.html',
+            chunks: ["admin"]
         }),
         new HtmlWebpackPlugin({
-            template : './src/pages/second.html',
+            template : path.resolve(__dirname,'./src/pages/second.html'),
             filename: 'second.html',
             chunks: ["second"]
         }),

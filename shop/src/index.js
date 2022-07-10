@@ -5,11 +5,18 @@ import {renderList,counterItemsInCard, getCatalogItems} from './modules/catalog'
 let productList = new Map()
 let cardList = new Map()
 
-getCatalogItems((data) => {
+/* getCatalogItems((data) => {
   Object.entries(data).forEach(item => {
     productList.set(item[0], {...item[1], amount : ''})
   })
   drawProductCatalog()
+}) */
+
+getCatalogItems((catalog)=>{
+  Object.entries(catalog).forEach((item)=>{
+    productList.set(item[0],{...item[1],amount : ''})
+  })
+  drawProductCatalog(productList)
 })
 
 // productList.set('Milk',{amount : ''})
@@ -18,23 +25,10 @@ getCatalogItems((data) => {
 // productList.set('Beans',{amount : ''})
 // productList.set('Chicken',{amount : ''})
 
-
 const drawProductCatalog = () =>{
   const ulOfProduct  = document.querySelector('.listProduct')
-  renderList(ulOfProduct,productList)
+  renderList(ulOfProduct,productList,true)
 }
-
-
-
-const btnAddNewProduct = document.querySelector('.addNewProduct')
-btnAddNewProduct.addEventListener('click', () => {
-  const inputAdd = document.querySelector('.inputAdd')
-  if (inputAdd.value) {
-    productList.set(inputAdd.value,{amount : ''})
-    drawProductCatalog()
-  }
-  inputAdd.value = ''
-})
 
 const btnAddToCard = document.querySelector('.addCard')
 btnAddToCard.addEventListener('click',()=>{
@@ -44,7 +38,7 @@ btnAddToCard.addEventListener('click',()=>{
       cardList.set(key,{amount :item.amount})
     }
   })
-  renderList(readyList,cardList)
+  renderList(readyList,cardList,true)
   counterItemsInCard(cardList)
 })
 
@@ -58,8 +52,6 @@ const btnClearCard = document.querySelector('.card-header__clearCard')
 btnClearCard.addEventListener('click', () => {
   const readyList = document.querySelector('.readyList')
   cardList.clear()
-  renderList(readyList,cardList)
+  renderList(readyList,cardList,true)
   counterItemsInCard(cardList)
 })
-
-console.log(2)

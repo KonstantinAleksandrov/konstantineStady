@@ -6,6 +6,18 @@
         "Water": {
             "name": "Water",
             "price": 30
+        },
+        "Chicken": {
+            "name": "Chicken"
+        },
+        "Apple": {
+            "name": "Apple"
+        },
+        "Bread": {
+            "name": "Bread"
+        },
+        "Ham": {
+            "name": "Ham"
         }
     },
     "card": [
