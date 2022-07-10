@@ -26,8 +26,12 @@ app.get('/catalog', (req, res) => {
 
 app.post('/catalog', (req, res) => {
   const newGood = req.body
-  db.push("/catalog/" + newGood.name + '/', newGood);
-  res.send(db.getData("/catalog/"))
+  if(newGood.name) {
+    db.push("/catalog/" + newGood.name + '/', newGood);
+    res.send(db.getData("/catalog/"))
+  } else {
+    res.status(400).send("name is required")
+  }
 })
 
 app.delete('/catalog/:name', (req, res) => {
