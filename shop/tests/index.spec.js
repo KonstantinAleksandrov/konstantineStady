@@ -1,19 +1,15 @@
-let history = []
-const old_console = console.log
+
 
 describe("My first test case", () => {
   beforeEach(() => {
-    console.log = (...args) => {
-      history.push(args)
-      old_console.apply(this, args)
-    }
+    console.log("Тут готовим компоненты для тестирования")
   })
 
   afterEach(() => {
-    history = []
+    console.log("Чистим окружение, для следующего кейса")
   })
 
   it("test", () => {
-    expect(true)
+    expect(true) // Сам тест
   })
 })
