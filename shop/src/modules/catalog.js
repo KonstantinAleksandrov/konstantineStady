@@ -45,3 +45,34 @@ export const getCatalogItems = (callBack) =>{
     callBack(JSON.parse(result))
   })
 }
+
+/* export const addProductInCard = (list,counter,callBack) =>{
+  if(counter == list.length){
+    fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/card`)
+    .then(response => response.text())
+    .then(result => {
+      callBack(result)
+    })
+    return
+  }else{
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+      "name": list[counter].name,
+      'amount': list[counter].amount
+    });
+
+    let requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    }
+
+    fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/card`, requestOptions)
+    .then(()=>{
+      addProductInCard(counter + 1)
+    })
+  }
+} */
