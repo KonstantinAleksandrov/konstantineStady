@@ -1,73 +1,52 @@
 import './style/style.scss'
-import {renderList,counterItemsInCard, getCatalogItems/* ,addProductInCard */} from './modules/catalog'
+import {renderList, counterItemsInCard, getCatalogItems/* ,addProductInCard */} from './modules/catalog'
 import {renderNavMenu} from './modules/common'
 
 let productList = new Map()
 let cardList = new Map()
-let tempList = []
 
-/* const addProductInCard = (counter) =>{
-  if(counter == tempList.length){
-    return
-  }else{
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+const addProductInCard = (list) => {
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
 
-    let raw = JSON.stringify({
-      "name": tempList[counter].name,
-      'amount': tempList[counter].amount
-    });
+  let raw = JSON.stringify(list);
 
-    let requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
+  let requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+  };
 
-    return fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/card`, requestOptions)
-    .then(()=>{
-      addProductInCard(counter + 1)
-    })
-  }
-} */
+  return fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/card`, requestOptions)
+}
 
-getCatalogItems((catalog)=>{
-  Object.entries(catalog).forEach((item)=>{
-    productList.set(item[0],{...item[1],amount : ''})
+getCatalogItems((catalog) => {
+  Object.entries(catalog).forEach((item) => {
+    productList.set(item[0], {...item[1], amount: ''})
   })
   drawProductCatalog()
 })
 
-const drawProductCatalog = () =>{
-  const ulOfProduct  = document.querySelector('.listProduct')
-  renderList(ulOfProduct,productList,true)
+const drawProductCatalog = () => {
+  const ulOfProduct = document.querySelector('.listProduct')
+  renderList(ulOfProduct, productList, true)
 }
 
 const btnAddToCard = document.querySelector('.addCard')
- btnAddToCard.addEventListener('click',()=>{
+
+btnAddToCard.addEventListener('click', () => {
   const readyList = document.querySelector('.readyList')
-  productList.forEach((item,key)=>{
-    if(item.amount){
-      cardList.set(key,{amount :item.amount})
-    }
-  })
-  renderList(readyList,cardList,true)
-  counterItemsInCard(cardList)
-}) 
- btnAddToCard.addEventListener('click',()=>{
-  const readyList = document.querySelector('.readyList')
-   /* productList.forEach((item)=>{
-    if(item.amount && tempList.includes(item)){
+  const tempList = []
+  productList.forEach((item) => {
+    if (item.amount && tempList.includes(item)) {
       tempList[tempList.indexOf(item)].amount = item.amount
-    }else if (item.amount && !tempList.includes(item)){
+    } else if (item.amount && !tempList.includes(item)) {
       tempList.push(item)
     }
   })
-  addProductInCard(0).then((data)=>{
-    console.log(data)
-  })  */
-}) 
+
+  addProductInCard(tempList).then(() => window.location.replace('/card.html'))
+})
 
 const btnOpenCard = document.querySelector('.openCard')
 btnOpenCard.addEventListener('click', () => {
@@ -79,7 +58,7 @@ const btnClearCard = document.querySelector('.card-header__clearCard')
 btnClearCard.addEventListener('click', () => {
   const readyList = document.querySelector('.readyList')
   cardList.clear()
-  renderList(readyList,cardList,true)
+  renderList(readyList, cardList, true)
   counterItemsInCard(cardList)
 })
 

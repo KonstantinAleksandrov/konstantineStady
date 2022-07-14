@@ -48,7 +48,14 @@ app.get('/card', (req, res) => {
 
 app.post('/card', (req, res) => {
   const newCheckout = req.body
-  db.push("/card[]", newCheckout, true);
+  const oldCard = db.getData("/card/")
+
+  if(typeof newCheckout.length === "number") {
+    let newArray = oldCard.concat(newCheckout)
+    db.push("/card", newArray, true);
+  } else {
+    db.push("/card[]", newCheckout, true);
+  }
   res.send(db.getData("/card/"))
 })
 
@@ -56,6 +63,12 @@ app.delete('/card/:key', (req, res) => {
   const removedItem = req.params.key
   db.delete(`/card[${removedItem}]`);
   res.send(db.getData("/card"))
+})
+
+app.delete('/card', (req, res) => {
+  db.delete(`/card`);
+  db.push("/card", []);
+  res.send("OK")
 })
 
 

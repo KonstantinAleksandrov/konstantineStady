@@ -1,0 +1,17 @@
+{
+    "catalog": {
+        "Milk": {
+            "name": "Milk"
+        }
+    },
+    "card": [
+        {
+            "name": "Water",
+            "amount": 30
+        },
+        {
+            "name": "Milk",
+            "amount": 2
+        }
+    ]
+}

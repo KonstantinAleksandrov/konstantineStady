@@ -11,6 +11,6 @@
     "node-json-db": "^1.6.0"
   },
   "scripts": {
-    "start": "node --es-module-specifier-resolution=node index.js"
+    "start": "sudo node --es-module-specifier-resolution=node index.js"
   }
 }

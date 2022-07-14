@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest tests/*",
     "buildServer": "webpack serve",
+    "start": "concurrently --kill-others \"webpack serve\" \" node --es-module-specifier-resolution=node backend/index.js \" ",
     "build": "webpack"
   },
   "author": "konstantin",
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "concurrently": "^7.2.2",
     "dotenv": "^16.0.1",
     "jest": "^28.1.3"
   }

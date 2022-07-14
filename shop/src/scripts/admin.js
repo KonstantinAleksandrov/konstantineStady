@@ -72,7 +72,7 @@ let productList = new Map()
           delProductName.value = ''
         })
       }) 
-    }else{
+    } else {
       delProductName.value = 'Not found'
       return
     }
