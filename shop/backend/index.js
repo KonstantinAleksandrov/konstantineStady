@@ -41,7 +41,6 @@ app.delete('/catalog/:name', (req, res) => {
   res.send(db.getData("/catalog/"))
 })
 
-
 app.get('/card', (req, res) => {
   res.send(db.getData("/card/"))
 })
@@ -51,11 +50,27 @@ app.post('/card', (req, res) => {
   const oldCard = db.getData("/card/")
 
   if(typeof newCheckout.length === "number") {
-    let newArray = oldCard.concat(newCheckout)
+
+    const newArray = oldCard.concat(newCheckout.filter(f => !oldCard.map(i => i.name).includes(f.name)))
     db.push("/card", newArray, true);
   } else {
+
     db.push("/card[]", newCheckout, true);
   }
+  res.send(db.getData("/card/"))
+})
+
+app.put('/card', (req, res) => {
+  const {name, amount} = req.body
+  const oldCard = db.getData("/card/")
+  const newCard = oldCard.map(i => {
+    if(i.name === name) {
+      i.amount = i.amount + amount
+    }
+    return i
+  })
+  db.push("/card", newCard, true);
+
   res.send(db.getData("/card/"))
 })
 
@@ -70,7 +85,6 @@ app.delete('/card', (req, res) => {
   db.push("/card", []);
   res.send("OK")
 })
-
 
 app.listen(port, () => {
   const defaultData = db.getData("/")
