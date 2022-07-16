@@ -1,9 +1,13 @@
 import './style/style.scss'
-import {renderList, counterItemsInCard, getCatalogItems/* ,addProductInCard */} from './modules/catalog'
-import {renderNavMenu} from './modules/common'
+import {productList,drawProductCatalog,renderNavMenu,getCatalogItems,couterCardItems} from './modules/catalog'
 
-let productList = new Map()
 let cardList = new Map()
+getCatalogItems((catalog)=>{
+  Object.entries(catalog).forEach((item)=>{
+    productList.set(item[0],item[1])
+  })
+  drawProductCatalog(true,false)
+})
 
 const addProductInCard = (list) => {
   let myHeaders = new Headers();
@@ -20,22 +24,9 @@ const addProductInCard = (list) => {
   return fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/card`, requestOptions)
 }
 
-getCatalogItems((catalog) => {
-  Object.entries(catalog).forEach((item) => {
-    productList.set(item[0], {...item[1], amount: ''})
-  })
-  drawProductCatalog()
-})
-
-const drawProductCatalog = () => {
-  const ulOfProduct = document.querySelector('.listProduct')
-  renderList(ulOfProduct, productList, true)
-}
-
 const btnAddToCard = document.querySelector('.addCard')
 
 btnAddToCard.addEventListener('click', () => {
-  const readyList = document.querySelector('.readyList')
   const tempList = []
   productList.forEach((item) => {
     if (item.amount && tempList.includes(item)) {
@@ -44,22 +35,22 @@ btnAddToCard.addEventListener('click', () => {
       tempList.push(item)
     }
   })
-
-  addProductInCard(tempList).then(() => window.location.replace('/card.html'))
+  addProductInCard(tempList)
+  .then(response => response.json())
+  .then((result) =>{
+    /* window.location.replace('/card.html') */
+    const counterProductInCard = document.querySelector('.counterCardItems')
+    counterProductInCard.textContent = 0
+    result.forEach((item)=>{
+    counterProductInCard.textContent = +counterProductInCard.textContent + +item.amount
+    })
+  })
 })
 
-const btnOpenCard = document.querySelector('.openCard')
-btnOpenCard.addEventListener('click', () => {
-  const card = document.querySelector('.card')
-  card.classList.toggle('_activeCard')
+const openCard = document.querySelector('.openCard')
+openCard.addEventListener('click',()=>{
+  window.location.replace('/card.html')
 })
-
-const btnClearCard = document.querySelector('.card-header__clearCard')
-btnClearCard.addEventListener('click', () => {
-  const readyList = document.querySelector('.readyList')
-  cardList.clear()
-  renderList(readyList, cardList, true)
-  counterItemsInCard(cardList)
-})
-
+drawProductCatalog(true,false)
+couterCardItems()
 renderNavMenu()

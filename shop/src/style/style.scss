@@ -102,8 +102,8 @@ li:last-child{
     align-items: flex-start;
 }
 .inputAdd{
-    margin-left: 5px;
     margin-right: 0;
+    margin-bottom: 10px;
     width: 150px;
 }
 .inoputDel{
@@ -115,6 +115,8 @@ li:last-child{
 }
 .blockInput {
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .addNewProduct {
     margin-bottom: 25px;
@@ -148,4 +150,26 @@ li:last-child{
     display: block;
 }
 
-
+.closeCross{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-left: 10px;
+    cursor: pointer;
+    span{
+        transition: all 0.3s ease 0s;
+        width: 16px;
+        height: 2px;
+        background-color: rgb(121, 140, 151);
+        position: absolute;
+        left: 0;
+        top: 10px;
+        transform: rotate(-45deg);
+    }
+    span:last-child{
+        transform: rotate(45deg);
+    }
+}
+.price{
+    margin-left: 20px;
+}

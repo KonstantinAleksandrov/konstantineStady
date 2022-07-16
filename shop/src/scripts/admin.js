@@ -1,29 +1,24 @@
 
 import '../style/admin.scss'
-import {renderList,getCatalogItems} from '../modules/catalog'
-import {renderNavMenu} from '../modules/common'
-
-let productList = new Map()
-  const drawProductCatalog = () =>{
-    const ulOfProduct  = document.querySelector('.listProduct')
-    renderList(ulOfProduct,productList,false)
-  }
-  getCatalogItems((catalog)=>{
-    Object.entries(catalog).forEach((item)=>{
-      productList.set(item[0],item[1])
-    })
-    drawProductCatalog()
+import { productList,drawProductCatalog,getCatalogItems,renderNavMenu} from '../modules/catalog' 
+ getCatalogItems((catalog)=>{
+  Object.entries(catalog).forEach((item)=>{
+    productList.set(item[0],item[1])
   })
+  drawProductCatalog(false,true)
+})
 
   const btnAddNewProduct = document.querySelector('.addNewProduct')
   btnAddNewProduct.addEventListener('click',()=>{
     const getProductName = document.querySelector('.inputAdd')
+    const getProductPrice = document.querySelector('.addPrice')
     if(getProductName.value && !Number(getProductName.value) && getProductName.value != 0){
-            let myHeaders = new Headers();
+        let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json"); 
 
         let raw = JSON.stringify({
-            "name": getProductName.value
+            "name": getProductName.value,
+            "price": getProductPrice.value
         });
 
         let requestOptions = {
@@ -39,44 +34,17 @@ let productList = new Map()
                 Object.entries(catalog).forEach((item)=>{
                   productList.set(item[0],item[1])
                 })
-                drawProductCatalog()
+                drawProductCatalog(false,true)
             })
         })
-        .then(()=>getProductName.value = '')
+        .then(()=>{
+          getProductName.value = ''
+          getProductPrice.value = ''
+        })
         .catch(error => console.log('error', error))
     }else{
         getProductName.value = 'incorrect name'
         return
     }
  })
-
- const btnDelProduct = document.querySelector('.DelProduct')
- btnDelProduct.addEventListener('click',()=>{
-  let delProductName = document.querySelector('.inoputDel')
-  fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/catalog`)
-  .then(response => response.text())
-  .then((result)=>{
-    if(Object.keys(JSON.parse(result)).includes(delProductName.value)){
-       let requestOptions = {
-        method: 'DELETE',
-        redirect: 'follow'
-      };
-
-      fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/catalog/${delProductName.value}`, requestOptions)
-      .then(response => response.text())
-      .then((result)=>{
-        productList.clear()
-        Object.entries(JSON.parse(result)).forEach((item)=>{
-          productList.set(item[0],item[1])
-          drawProductCatalog()
-          delProductName.value = ''
-        })
-      }) 
-    } else {
-      delProductName.value = 'Not found'
-      return
-    }
-  })
- })
-
-renderNavMenu()
+ renderNavMenu() 

@@ -1,6 +1,5 @@
-//import axios from 'axios'
-
-export const renderList = (list,data,createInput) =>{
+export let productList = new Map()
+export const renderList = (list,data,createInput,addCloseCross) =>{
   list.innerHTML = ''
   data.forEach((item,key)=>{
     const li = document.createElement('li')
@@ -14,10 +13,31 @@ export const renderList = (list,data,createInput) =>{
       input.value = item.amount
       li.append(input)
     }
-    const span = document.createElement('span')
-    span.textContent = key
-    li.append(span)
+    const itemName = document.createElement('span')
+    itemName.textContent = key
+
+    const price = document.createElement('span')
+    price.classList.add('price')
+    price.textContent = item.price + '$'
+    li.append(itemName)
+    li.append(price)
     list.append(li)
+    if(addCloseCross){
+      const closeCross = document.createElement('div')
+      closeCross.classList.add('closeCross')
+      const spanCross = document.createElement('span')
+      spanCross.classList.add('spanCross')
+      const spanCrossTwo = document.createElement('span')
+      spanCrossTwo.classList.add('spanCrossTwo')
+
+      closeCross.append(spanCross)
+      closeCross.append(spanCrossTwo)
+      li.append(closeCross)
+
+      closeCross.addEventListener('click',()=>{
+        DelProduct(key,productList)
+      })
+    }
   })
 }
 
@@ -31,13 +51,6 @@ export const counterItemsInCard = (data) =>{
 }
 
 
-/* export const getCatalogItems = (cb) => {
-  axios.get('http://127.0.0.1:900/catalog')
-    .then(({data}) => {
-      cb(data)
-    })
-} */
-
 export const getCatalogItems = (callBack) =>{
   fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/catalog`)
   .then(response => response.text())
@@ -45,34 +58,53 @@ export const getCatalogItems = (callBack) =>{
     callBack(JSON.parse(result))
   })
 }
+export const drawProductCatalog = (createInput,addCloseCross) =>{
+  const ulOfProduct  = document.querySelector('.listProduct')
+  renderList(ulOfProduct,productList,createInput,addCloseCross)
+}
 
-/* export const addProductInCard = (list,counter,callBack) =>{
-  if(counter == list.length){
-    fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/card`)
-    .then(response => response.text())
+const DelProduct = (nameProduct,list) =>{
+  let requestOptions = {
+    method: 'DELETE',
+    redirect: 'follow'
+  };
+
+  fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/catalog/${nameProduct}`, requestOptions)
+      .then(response => response.text())
+      .then((result)=>{
+        list.clear()
+        Object.entries(JSON.parse(result)).forEach((item)=>{
+          list.set(item[0],item[1])
+          drawProductCatalog(false,true)
+        })
+      }) 
+}
+
+export const renderNavMenu = () => {
+  const linkList = [{href: "/", text: "MAIN"},{href: "/admin.html", text: "Admin"},{href: "/card.html", text: "CARD"}]
+  const base = document.querySelector('.header__title')
+  linkList.forEach(item => {
+    const div = document.createElement('div')
+    const a = document.createElement('a')
+    a.setAttribute('href', item.href)
+    a.textContent = item.text
+    div.append(a)
+    base.append(div)
+  })
+}
+
+export const couterCardItems = ()=>{
+  let requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch("http://127.0.0.1:901/card", requestOptions)
+    .then(response => response.json())
     .then(result => {
-      callBack(result)
+      const counterProductInCard = document.querySelector('.counterCardItems')
+      result.forEach((item)=>{
+        counterProductInCard.textContent = +counterProductInCard.textContent + +item.amount
+        })
     })
-    return
-  }else{
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    let raw = JSON.stringify({
-      "name": list[counter].name,
-      'amount': list[counter].amount
-    });
-
-    let requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    }
-
-    fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/card`, requestOptions)
-    .then(()=>{
-      addProductInCard(counter + 1)
-    })
-  }
-} */
+}

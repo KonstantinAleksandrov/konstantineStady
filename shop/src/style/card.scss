@@ -1,3 +1,21 @@
 .card{
     display: block;
 }
+.readyList {
+    margin-left: 100px;
+    margin-top: 25px;
+    margin-bottom: 40px;
+    
+}
+.cardItem{
+    min-width: 150px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.buyForm{
+    margin-left: 100px;
+    max-width: 150px;
+    display: flex;
+    justify-content: space-between;
+}

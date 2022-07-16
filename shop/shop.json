@@ -1,17 +1,17 @@
 {
     "catalog": {
+        "Beer": {
+            "name": "Beer",
+            "price": "1.5"
+        },
+        "Ham": {
+            "name": "Ham",
+            "price": "10.2"
+        },
         "Milk": {
-            "name": "Milk"
+            "name": "Milk",
+            "price": "3"
         }
     },
-    "card": [
-        {
-            "name": "Water",
-            "amount": 30
-        },
-        {
-            "name": "Milk",
-            "amount": 2
-        }
-    ]
+    "card": []
 }
