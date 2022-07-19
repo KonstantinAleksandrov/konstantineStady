@@ -12,13 +12,19 @@ import { productList,drawProductCatalog,getCatalogItems,renderNavMenu} from '../
   btnAddNewProduct.addEventListener('click',()=>{
     const getProductName = document.querySelector('.inputAdd')
     const getProductPrice = document.querySelector('.addPrice')
-    if(getProductName.value && !Number(getProductName.value) && getProductName.value != 0){
+    const btnAddImage = document.querySelector('.addimg')
+    let img = btnAddImage.files[0]
+    let reader = new FileReader()
+    reader.readAsDataURL(img)
+    reader.addEventListener('load',()=>{
+      if(getProductName.value && !Number(getProductName.value) && getProductName.value != 0){
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json"); 
 
         let raw = JSON.stringify({
             "name": getProductName.value,
-            "price": getProductPrice.value
+            "price": getProductPrice.value,
+            "img" : reader.result
         });
 
         let requestOptions = {
@@ -42,9 +48,20 @@ import { productList,drawProductCatalog,getCatalogItems,renderNavMenu} from '../
           getProductPrice.value = ''
         })
         .catch(error => console.log('error', error))
-    }else{
-        getProductName.value = 'incorrect name'
-        return
-    }
+      }else{
+          getProductName.value = 'incorrect name'
+          return
+      }
+    })
  })
  renderNavMenu() 
+
+ /* const btnAddImage = document.querySelector('.addimg')
+ btnAddImage.addEventListener('change',()=>{
+  let img = btnAddImage.files[0]
+  let reader = new FileReader()
+  reader.readAsDataURL(img)
+  reader.addEventListener('load',()=>{
+    console.log(reader.result)
+  })
+ }) */
