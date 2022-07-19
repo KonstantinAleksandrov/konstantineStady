@@ -12,7 +12,10 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
-        static: path.resolve(__dirname, './dist'),
+        static: {
+            directory: path.resolve(__dirname, './dist'),
+            watch: true
+        },
         open: true,
         compress: true,
         hot: true,

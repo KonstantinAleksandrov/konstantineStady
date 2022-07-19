@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>admin</title>
 </head>
 <body>
-    <header class="header">
-        <div class="header__title">
-          Add new product in list
+<header class="header">
+  <div class="header__title">
+    Add new product in list
+  </div>
+</header>
+<main class="main">
+  <form action="#" class="form">
+    <div class="form__title">list of product</div>
+    <div class="form-content">
+      <ul class="listProduct list">
+      </ul>
+      <div class="newProduct">
+        <div class="blockInput">
+          <span>Name</span>
+          <input class="inputAdd" type="text"/>
+          <span>Price</span>
+          <input class="addPrice" type="number"/>
+          <span>Image</span>
+          <input class="addImage" type="file" multiple/>
+<!--          <img alt="preview" class="preview"/>-->
         </div>
-    </header>
-    <main class="main">
-        <form action="#" class="form"> 
-            <div class="form__title">list of product</div>
-            <div class="form-content">
-                <ul class="listProduct list">
-                </ul>
-                <div class="newProduct">
-                   <div class="blockInput">
-                    <span>Name</span>
-                    <input  class="inputAdd" type="text">
-                    <span>Price</span>
-                    <input  class="addPrice" type="number" >
-                   </div>
-                    <div class="btn addNewProduct">Add new product</div>
-                </div>
-            </div>
-        </form>
-    </main>
+        <button class="btn addNewProduct">Add new product</button>
+      </div>
+    </div>
+  </form>
+</main>
 </body>
 </html>
