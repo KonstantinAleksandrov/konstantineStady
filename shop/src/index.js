@@ -1,5 +1,6 @@
 import './style/style.scss'
-import {productList,drawProductCatalog,renderNavMenu,getCatalogItems,couterCardItems} from './modules/catalog'
+import ArrowLeft from './img/left.svg'
+import {productList,drawProductCatalog,renderNavMenu,getCatalogItems,counterCardItems} from './modules/utils'
 
 let cardList = new Map()
 getCatalogItems((catalog)=>{
@@ -52,5 +53,5 @@ openCard.addEventListener('click',()=>{
   window.location.replace('/card.html')
 })
 drawProductCatalog(true,false)
-couterCardItems()
+counterCardItems()
 renderNavMenu()

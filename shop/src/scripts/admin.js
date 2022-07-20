@@ -1,12 +1,13 @@
-
 import '../style/admin.scss'
-import { productList,drawProductCatalog,getCatalogItems,renderNavMenu} from '../modules/catalog' 
- getCatalogItems((catalog)=>{
-  Object.entries(catalog).forEach((item)=>{
-    productList.set(item[0],item[1])
+import {productList, drawProductCatalog, getCatalogItems, renderNavMenu} from '../modules/utils'
+
+getCatalogItems((catalog) => {
+  Object.entries(catalog).forEach((item) => {
+    productList.set(item[0], item[1])
   })
-  drawProductCatalog(false,true)
+  drawProductCatalog(false, true)
 })
+
 
   const btnAddNewProduct = document.querySelector('.addNewProduct')
   btnAddNewProduct.addEventListener('click',()=>{
@@ -22,32 +23,31 @@ import { productList,drawProductCatalog,getCatalogItems,renderNavMenu} from '../
         myHeaders.append("Content-Type", "application/json"); 
 
         let raw = JSON.stringify({
-            "name": getProductName.value,
-            "price": getProductPrice.value,
-            "img" : reader.result
+          "name": getProductName.value,
+          "price": getProductPrice.value,
+          "gallery": reader.result
         });
 
         let requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
         };
 
         fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/catalog`, requestOptions)
-        .then(()=>{
-            getCatalogItems((catalog)=>{
-                Object.entries(catalog).forEach((item)=>{
-                  productList.set(item[0],item[1])
-                })
-                drawProductCatalog(false,true)
+          .then(() => {
+            getCatalogItems((catalog) => {
+              Object.entries(catalog).forEach((item) => {
+                productList.set(item[0], item[1])
+              })
+              drawProductCatalog(false, true)
             })
-        })
-        .then(()=>{
+          })
+          .then(() => {
           getProductName.value = ''
           getProductPrice.value = ''
         })
-        .catch(error => console.log('error', error))
       }else{
           getProductName.value = 'incorrect name'
           return
@@ -65,3 +65,5 @@ import { productList,drawProductCatalog,getCatalogItems,renderNavMenu} from '../
     console.log(reader.result)
   })
  }) */
+
+

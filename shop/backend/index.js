@@ -5,7 +5,7 @@ import cors from 'cors'
 import 'dotenv'
 
 const app = express()
-app.use(express.json())
+app.use(express.json({limit: '50mb'}))
 const port = 901
 const db = new JsonDB(new Config("shop", true, true, '/'));
 

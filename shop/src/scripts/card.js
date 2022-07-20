@@ -1,6 +1,6 @@
 import '../style/style.scss'
 import '../style/card.scss'
-import {renderNavMenu,renderList} from '../modules/catalog';
+import {renderNavMenu, renderList} from '../modules/utils';
 
 renderNavMenu()
 
