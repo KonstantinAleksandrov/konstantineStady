@@ -1,53 +1,27 @@
 @import "reset";
-@import "slider";
 
-$maxWidth: 1440;
-$minWidth: 320;
-$maxWidthContainer: 1200;
-$md1: $maxWidthContainer + 12;
-$md2: 899.98;
-$md3: 599.98;
-$md4: 479.98;
-$mainColor: #FF7931;
-
-@mixin adaptive-value($property,$startSize,$minSize,$needWidth,$type){
-   $addSize : $startSize - $minSize;
-   @if $type == 1 {
-      //Только если меньше контейнера
-      #{$property} : $startSize + px;
-      @media(max-width: #{$maxWidthContainer + px}){
-         #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$needWidth + px}) / #{$maxWidthContainer - 320}));
-      }
-   } @else if $type == 2 {
-      //Только если больше контейнера
-      #{$property} : $startSize + px;
-      @media(min-width: #{$maxWidthContainer + px}){
-         #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$needWidth + px}) / #{$maxWidth - 320}));
-      }
-   } @else {
-      //Всгда
-      #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$needWidth + px}) / #{$maxWidth - 320}));
-   }
-}
-/*---------------------*/
-body{
+body {
     font-size: 18px;
 }
-input{
+
+input {
     width: 100px;
     border: 1px solid grey;
     margin-right: 5px;
     padding: 2px;
 }
-li{
+
+li {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 2px;
 }
-li:last-child{
+
+li:last-child {
     margin-bottom: 0;
 }
+
 .btn {
     padding: 2px;
     border: 1px solid grey;
@@ -58,19 +32,21 @@ li:last-child{
     max-width: 100px;
     cursor: pointer;
 }
+
 .header {
     background-color: lightblue;
     padding: 15px 30px 10px 30px;
+
     &__title {
         font-size: 30px;
         color: white;
         display: flex;
         align-items: baseline;
 
-      > div {
-        padding-left: 20px;
-        font-size: 70%;
-      }
+        >div {
+            padding-left: 20px;
+            font-size: 70%;
+        }
     }
 
     &__button {
@@ -79,59 +55,70 @@ li:last-child{
         text-align: right;
     }
 }
+
 .main {
     padding: 20px;
     display: flex;
     justify-content: space-between;
 }
+
 .form {
-   &__title{
-    margin-bottom: 15px;
-   } 
+    &__title {
+        margin-bottom: 15px;
+    }
 }
-.form-content{
+
+.form-content {
     display: flex;
     justify-content: space-between;
     min-width: 500px;
 }
+
 .listProduct {
     margin-bottom: 20px;
 
-  li {
-    position: relative;
-  }
+    li {
+        position: relative;
+    }
 }
+
 .list {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
-.inputAdd{
+
+.inputAdd {
     margin-right: 0;
     margin-bottom: 10px;
     width: 150px;
 }
-.inoputDel{
+
+.inoputDel {
     margin-left: 5px;
     margin-right: 0;
-    width: 150px; 
+    width: 150px;
 }
-.newProduct {
-}
+
+.newProduct {}
+
 .blockInput {
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
 }
+
 .addNewProduct {
     margin-bottom: 25px;
 }
-.addCard {
-}
-.openCard{
+
+.addCard {}
+
+.openCard {
     text-decoration: underline;
     cursor: pointer;
 }
+
 //.card {
 //    flex: 0 0 300px;
 //    padding: 10px;
@@ -142,26 +129,26 @@ li:last-child{
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-		&__title {
 
-		}
-        &__clearCard{
+    &__title {}
 
-        }
+    &__clearCard {}
 }
-.readyList {
-}
-._activeCard{
+
+.readyList {}
+
+._activeCard {
     display: block;
 }
 
-.closeCross{
+.closeCross {
     width: 20px;
     height: 20px;
     position: relative;
     margin-left: 10px;
     cursor: pointer;
-    span{
+
+    span {
         transition: all 0.3s ease 0s;
         width: 16px;
         height: 2px;
@@ -171,26 +158,18 @@ li:last-child{
         top: 10px;
         transform: rotate(-45deg);
     }
-    span:last-child{
+
+    span:last-child {
         transform: rotate(45deg);
     }
 }
-.price{
+
+.price {
     margin-left: 20px;
 }
 
 .image {
-  max-width: 50px;
-  max-height: 20px;
+    max-width: 50px;
+    max-height: 20px;
 
-  &:hover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    max-width: 250px;
-    max-height: 120px;
-    transition-duration: 0.2s;
-  }
 }
-
-

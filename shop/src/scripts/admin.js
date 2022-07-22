@@ -11,14 +11,65 @@ getCatalogItems((catalog) => {
 
   const btnAddNewProduct = document.querySelector('.addNewProduct')
   btnAddNewProduct.addEventListener('click',()=>{
+    let arrImage = []
+    let temp = 0
     const getProductName = document.querySelector('.inputAdd')
     const getProductPrice = document.querySelector('.addPrice')
     const btnAddImage = document.querySelector('.addimg')
-    let img = btnAddImage.files[0]
-    let reader = new FileReader()
-    reader.readAsDataURL(img)
-    reader.addEventListener('load',()=>{
-      if(getProductName.value && !Number(getProductName.value) && getProductName.value != 0){
+    
+    const addNewImg = () =>{
+      let img = btnAddImage.files[temp]
+      let reader = new FileReader()
+      reader.readAsDataURL(img)
+      reader.addEventListener('load',()=>{
+        arrImage.push(reader.result)
+        temp++
+        if(temp < btnAddImage.files.length){
+          addNewImg()
+        }else{
+          
+            if(getProductName.value && !Number(getProductName.value) && getProductName.value != 0){
+             let myHeaders = new Headers();
+             myHeaders.append("Content-Type", "application/json"); 
+     
+             let raw = JSON.stringify({
+               "name": getProductName.value,
+               "price": getProductPrice.value,
+               "gallery": arrImage
+             });
+     
+             let requestOptions = {
+               method: 'POST',
+               headers: myHeaders,
+               body: raw,
+               redirect: 'follow'
+             };
+     
+             fetch(`http://127.0.0.1:${process.env.BACKEND_PORT}/catalog`, requestOptions)
+               .then(() => {
+                 getCatalogItems((catalog) => {
+                   Object.entries(catalog).forEach((item) => {
+                     productList.set(item[0], item[1])
+                   })
+                   drawProductCatalog(false, true)
+                 })
+               })
+               .then(() => {
+               getProductName.value = ''
+               getProductPrice.value = ''
+             })
+           }else{
+               getProductName.value = 'incorrect name'
+               return
+           }
+         
+        }
+      })
+    }
+    addNewImg()
+    
+    /* reader.addEventListener('load',()=>{
+       if(getProductName.value && !Number(getProductName.value) && getProductName.value != 0){
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json"); 
 
@@ -52,7 +103,7 @@ getCatalogItems((catalog) => {
           getProductName.value = 'incorrect name'
           return
       }
-    })
+    }) */
  })
  renderNavMenu() 
 

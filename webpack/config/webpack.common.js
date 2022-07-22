@@ -40,11 +40,13 @@ module.exports = { // commonJS export
       },
       {
         test: [/\.jpg$/, /\.png$/, /\.gif$/],
-        type: 'asset/resource'
+        type: 'asset/resource',
+        use: ['file-loader']
       },
       {
         test: /\.svg$/,
-        type: 'asset/inline'
+        type: 'asset/inline',
+        use: ['file-loader']
       },
       {
         test: /\.scss$/,

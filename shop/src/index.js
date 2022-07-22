@@ -1,13 +1,12 @@
-import './style/style.scss'
-import ArrowLeft from './img/left.svg'
-import {productList,drawProductCatalog,renderNavMenu,getCatalogItems,counterCardItems} from './modules/utils'
+import './style/main.scss'
+import {renderListTwo,productList,drawProductCatalog,renderNavMenu,getCatalogItems,counterCardItems} from './modules/utils'
 
-let cardList = new Map()
 getCatalogItems((catalog)=>{
   Object.entries(catalog).forEach((item)=>{
     productList.set(item[0],item[1])
   })
-  drawProductCatalog(true,false)
+  const ulOfProduct = document.querySelector('.listProduct')
+  renderListTwo(ulOfProduct,productList)
 })
 
 const addProductInCard = (list) => {

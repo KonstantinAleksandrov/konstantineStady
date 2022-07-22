@@ -1,3 +1,7 @@
+import ArrowLeft from '../img/left.svg'
+import ArrowRight from '../img/right.svg'
+import CreateSlider from './slider'
+
 export let productList = new Map()
 export const renderList = (list, data, createInput, addCloseCross) => {
   list.innerHTML = ''
@@ -8,7 +12,7 @@ export const renderList = (list, data, createInput, addCloseCross) => {
     img.setAttribute('class', "image")
     li.append(img)
 
-    if (createInput) {
+    /* if (createInput) {
       const input = document.createElement('input')
       input.addEventListener('blur', () => {
         item.amount = input.value
@@ -17,7 +21,7 @@ export const renderList = (list, data, createInput, addCloseCross) => {
       input.name = key
       input.value = item.amount
       li.append(input)
-    }
+    } */
     const itemName = document.createElement('span')
     itemName.textContent = key
 
@@ -87,7 +91,7 @@ const delProduct = (nameProduct, list) => {
 }
 
 export const renderNavMenu = () => {
-  const linkList = [{href: "/", text: "MAIN"}, {href: "/admin.html", text: "Admin"}, {href: "/card.html", text: "CARD"}]
+  const linkList = [{ href: "/", text: "MAIN" }, { href: "/admin.html", text: "Admin" }, { href: "/card.html", text: "CARD" }]
   const base = document.querySelector('.header__title')
   linkList.forEach(item => {
     const div = document.createElement('div')
@@ -115,3 +119,108 @@ export const counterCardItems = () => {
     })
 }
 
+export const renderListTwo = (list, data) => {
+  list.innerHTML = ''
+  data.forEach((item, key) => {
+    const li = document.createElement('li')
+    li.classList.add('product')
+
+    const title = document.createElement('div')
+    title.classList.add('product__title')
+    title.textContent = key
+
+    const slider = document.createElement('div')
+    slider.classList.add('product__slider')
+    slider.classList.add('slider')
+    const sliderContainer = document.createElement('div')
+    sliderContainer.classList.add('slider-container')
+
+    const footer = document.createElement('div')
+    footer.classList.add('footer-product')
+    const counterAmount = document.createElement('div')
+    counterAmount.classList.add('counterAmount')
+    const less = document.createElement('span')
+    less.addEventListener('click', () => {
+      if (!(+drowAmount.textContent)) {
+        return
+      }
+      drowAmount.textContent = +drowAmount.textContent - 1
+      item.amount = drowAmount.textContent
+    })
+    less.classList.add('less')
+    less.textContent = '-'
+    const more = document.createElement('span')
+    more.classList.add('more')
+    more.textContent = '+'
+    more.addEventListener('click', () => {
+      drowAmount.textContent = +drowAmount.textContent + 1
+      item.amount = drowAmount.textContent
+    })
+    const drowAmount = document.createElement('span')
+    drowAmount.textContent = 0
+    drowAmount.classList.add('drowAmount')
+    const price = document.createElement('div')
+    price.classList.add('footer-product__price')
+    price.textContent = item.price + '$'
+
+    if (item.gallery.length > 1) {
+      item.gallery.forEach((img) => {
+        const sliderItem = document.createElement('div')
+        sliderItem.classList.add('slider-item')
+        const sliderItemImg = document.createElement('img')
+        sliderItemImg.src = img
+        sliderContainer.append(sliderItem)
+        sliderItem.append(sliderItemImg)
+      })
+      const sliderArrows = document.createElement('div')
+        sliderArrows.classList.add('slider-arrows')
+        const nextArrow = document.createElement('div')
+        nextArrow.classList.add('next-arrow')
+        const previousArrow = document.createElement('div')
+        previousArrow.classList.add('previous-arrow')
+        const nextArrowImg = document.createElement('img')
+        nextArrowImg.src = ArrowRight
+        const previousArrowImg = document.createElement('img')
+        previousArrowImg.src = ArrowLeft
+
+        slider.append(sliderArrows)
+        sliderArrows.append(nextArrow)
+        nextArrow.append(nextArrowImg)
+        sliderArrows.append(previousArrow)
+        previousArrow.append(previousArrowImg)
+
+      const mySlider = new CreateSlider(
+        sliderContainer.querySelectorAll('.slider-item'),
+        slider,
+        sliderContainer,
+        nextArrow,
+        previousArrow
+      )
+
+      mySlider.sliderStart()
+
+    } else {
+      const sliderItem = document.createElement('div')
+      sliderItem.classList.add('slider-item')
+      const sliderItemImg = document.createElement('img')
+      sliderItemImg.src = item.gallery
+
+      sliderContainer.append(sliderItem)
+      sliderItem.append(sliderItemImg)
+    }
+
+    counterAmount.append(less)
+    counterAmount.append(drowAmount)
+    counterAmount.append(more)
+
+    list.append(li)
+    li.append(title)
+    li.append(slider)
+    slider.append(sliderContainer)
+
+
+    li.append(footer)
+    footer.append(counterAmount)
+    footer.append(price)
+  })
+}
